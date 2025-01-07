@@ -235,17 +235,17 @@ user's information.
     }
     ```
 
-## SPOTS
+## Gifts
 
-### Get all Spots
+### Get all Gifts
 
-Returns all the spots.
+Returns all the gifts.
 
 - Require Authentication: false
 - Request
 
   - Method: GET
-  - Route path: /spots
+  - Route path: /gifts
   - Body: none
 
 - Successful Response
@@ -257,37 +257,32 @@ Returns all the spots.
 
     ```json
     {
-      "Spots": [
+      "Gifts": [
         {
           "id": 1,
-          "ownerId": 1,
-          "address": "123 Disney Lane",
-          "city": "San Francisco",
-          "state": "California",
-          "country": "United States of America",
-          "lat": 37.7645358,
-          "lng": -122.4730327,
-          "name": "App Academy",
-          "description": "Place where web developers are created",
+          "userId": 1,
+          "name": "App Academy Gift 1",
+          "description": "Wonderful Present",
           "price": 123,
+          "quantity": 2,
+          "purchased": true,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "avgRating": 4.5,
           "previewImage": "image url"
         }
       ]
     }
     ```
 
-### Get all Spots owned by the Current User
+### Get all Gifts added by the Current User
 
-Returns all the spots owned (created) by the current user.
+Returns all the gifts added (created) by the current user.
 
 - Require Authentication: true
 - Request
 
   - Method: GET
-  - Route path: /users/:userId/spots
+  - Route path: /users/:userId/gifts
   - Body: none
 
 - Successful Response
@@ -299,37 +294,32 @@ Returns all the spots owned (created) by the current user.
 
     ```json
     {
-      "Spots": [
+      "Gifts": [
         {
           "id": 1,
-          "ownerId": 1,
-          "address": "123 Disney Lane",
-          "city": "San Francisco",
-          "state": "California",
-          "country": "United States of America",
-          "lat": 37.7645358,
-          "lng": -122.4730327,
-          "name": "App Academy",
-          "description": "Place where web developers are created",
+          "userId": 1,
+          "name": "App Academy Gift 1",
+          "description": "Wonderful Present",
           "price": 123,
+          "quantity": 2,
+          "purchased": true,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-          "avgRating": 4.5,
           "previewImage": "image url"
         }
       ]
     }
     ```
 
-### Get details of a Spot from an id
+### Get details of a Gift from an id
 
-Returns the details of a spot specified by its id.
+Returns the details of a gift specified by its id.
 
 - Require Authentication: false
 - Request
 
   - Method: GET
-  - Route path: /spots/:spotId
+  - Route path: /gifts/:giftId
   - Body: none
 
 - Successful Response
@@ -341,22 +331,18 @@ Returns the details of a spot specified by its id.
 
     ```json
     {
+
       "id": 1,
-      "ownerId": 1,
-      "address": "123 Disney Lane",
-      "city": "San Francisco",
-      "state": "California",
-      "country": "United States of America",
-      "lat": 37.7645358,
-      "lng": -122.4730327,
-      "name": "App Academy",
-      "description": "Place where web developers are created",
+      "userId": 1,
+      "name": "App Academy Gift 1",
+      "description": "Wonderful Present",
       "price": 123,
+      "quantity": 2,
+      "purchased": true,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "numReviews": 5,
-      "avgStarRating": 4.5,
-      "SpotImages": [
+      "previewImage": "image url"
+      "GiftImages": [
         {
           "id": 1,
           "url": "image url",
@@ -368,7 +354,7 @@ Returns the details of a spot specified by its id.
           "preview": false
         }
       ],
-      "Owner": {
+      "User": {
         "id": 1,
         "firstName": "John",
         "lastName": "Smith"
@@ -376,7 +362,7 @@ Returns the details of a spot specified by its id.
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -385,33 +371,27 @@ Returns the details of a spot specified by its id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-### Create a Spot
+### Create a Gift
 
-Creates and returns a new spot.
+Creates and returns a new gift.
 
 - Require Authentication: true
 - Request
 
   - Method: POST
-  - Route path: /spots
+  - Route path: /gifts
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "address": "123 Disney Lane",
-      "city": "San Francisco",
-      "state": "California",
-      "country": "United States of America",
-      "lat": 37.7645358,
-      "lng": -122.4730327,
       "name": "App Academy",
-      "description": "Place where web developers are created",
+      "description": "Wonderful Present",
       "price": 123
     }
     ```
@@ -426,15 +406,9 @@ Creates and returns a new spot.
     ```json
     {
       "id": 1,
-      "ownerId": 1,
-      "address": "123 Disney Lane",
-      "city": "San Francisco",
-      "state": "California",
-      "country": "United States of America",
-      "lat": 37.7645358,
-      "lng": -122.4730327,
+      "userId": 1,
       "name": "App Academy",
-      "description": "Place where web developers are created",
+      "description": "Wonderful Present",
       "price": 123,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
@@ -452,20 +426,14 @@ Creates and returns a new spot.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "address": "Street address is required",
-        "city": "City is required",
-        "state": "State is required",
-        "country": "Country is required",
-        "lat": "Latitude must be within -90 and 90",
-        "lng": "Longitude must be within -180 and 180",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day must be a positive number"
+        "price": "Price must be a positive number"
       }
     }
     ```
 
-### Add an Image to a Spot based on the Spot's id
+### Add an Image to a Gift based on the Gift's id
 
 Create and return a new image for a spot specified by id.
 
@@ -474,7 +442,7 @@ Create and return a new image for a spot specified by id.
 - Request
 
   - Method: POST
-  - Route path: /spots/:spotId/images
+  - Route path: /gifts/:giftId/images
   - Headers:
     - Content-Type: application/json
   - Body:
@@ -510,34 +478,28 @@ Create and return a new image for a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-### Edit a Spot
+### Edit a Gift
 
-Updates and returns an existing spot.
+Updates and returns an existing gift.
 
 - Require Authentication: true
-- Require proper authorization: Spot must belong to the current user
+- Require proper authorization: Gift must belong to the current user
 - Request
 
   - Method: PUT
-  - Route path: /spots/:spotId
+  - Route path: /gifts/:giftId
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "address": "123 Disney Lane",
-      "city": "San Francisco",
-      "state": "California",
-      "country": "United States of America",
-      "lat": 37.7645358,
-      "lng": -122.4730327,
       "name": "App Academy",
-      "description": "Place where web developers are created",
+      "description": "Wonderful Present",
       "price": 123
     }
     ```
@@ -552,18 +514,12 @@ Updates and returns an existing spot.
     ```json
     {
       "id": 1,
-      "ownerId": 1,
-      "address": "123 Disney Lane",
-      "city": "San Francisco",
-      "state": "California",
-      "country": "United States of America",
-      "lat": 37.7645358,
-      "lng": -122.4730327,
+      "userId": 1,
       "name": "App Academy",
-      "description": "Place where web developers are created",
+      "description": "Wonderful Present",
       "price": 123,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-20 10:06:40"
+      "updatedAt": "2021-11-19 20:39:36"
     }
     ```
 
@@ -578,20 +534,14 @@ Updates and returns an existing spot.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "address": "Street address is required",
-        "city": "City is required",
-        "state": "State is required",
-        "country": "Country is required",
-        "lat": "Latitude must be within -90 and 90",
-        "lng": "Longitude must be within -180 and 180",
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price per day must be a positive number"
+        "price": "Price must be a positive number"
       }
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -600,20 +550,20 @@ Updates and returns an existing spot.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-### Delete a Spot
+### Delete a Gift
 
-Deletes an existing spot.
+Deletes an existing gift.
 
 - Require Authentication: true
-- Require proper authorization: Spot must belong to the current user
+- Require proper authorization: Gift must belong to the current user
 - Request
 
   - Method: DELETE
-  - Route path: /spots/:spotId
+  - Route path: /gifts/:giftId
   - Body: none
 
 - Successful Response
@@ -629,7 +579,7 @@ Deletes an existing spot.
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -638,15 +588,15 @@ Deletes an existing spot.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-## REVIEWS
+## COMMENTS
 
-### Get all Reviews of the Current User
+### Get all Comments of the Current User
 
-Returns all the reviews written by the current user.
+Returns all the comments written by the current user.
 
 - Require Authentication: true
 - Request
@@ -664,13 +614,12 @@ Returns all the reviews written by the current user.
 
     ```json
     {
-      "Reviews": [
+      "Comments": [
         {
           "id": 1,
           "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
-          "stars": 5,
+          "giftId": 1,
+          "comment": "This was an awesome gift!",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "User": {
@@ -678,39 +627,32 @@ Returns all the reviews written by the current user.
             "firstName": "John",
             "lastName": "Smith"
           },
-          "Spot": {
+          "Gifts": {
             "id": 1,
-            "ownerId": 1,
-            "address": "123 Disney Lane",
-            "city": "San Francisco",
-            "state": "California",
-            "country": "United States of America",
-            "lat": 37.7645358,
-            "lng": -122.4730327,
-            "name": "App Academy",
+            "userId": 1,
+            "name": "App Academy Gift 1",
+            "description": "Wonderful Present",
             "price": 123,
+            "quantity": 2,
+            "purchased": true,
+            "createdAt": "2021-11-19 20:39:36",
+            "updatedAt": "2021-11-19 20:39:36",
             "previewImage": "image url"
-          },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ]
+          }
         }
       ]
     }
     ```
 
-### Get all Reviews by a Spot's id
+### Get all Comments by a Gift's id
 
-Returns all the reviews that belong to a spot specified by id.
+Returns all the comments that belong to a gift specified by id.
 
 - Require Authentication: false
 - Request
 
   - Method: GET
-  - Route path: /spots/:spotId/reviews
+  - Route path: /gifts/:giftId/comments
   - Body: none
 
 - Successful Response
@@ -722,32 +664,25 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "Reviews": [
+      "Comments": [
         {
           "id": 1,
           "userId": 1,
-          "spotId": 1,
-          "review": "This was an awesome spot!",
-          "stars": 5,
+          "giftId": 1,
+          "comment": "This was an awesome gift!",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
           "User": {
             "id": 1,
             "firstName": "John",
             "lastName": "Smith"
-          },
-          "ReviewImages": [
-            {
-              "id": 1,
-              "url": "image url"
-            }
-          ]
+          }
         }
       ]
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -756,27 +691,26 @@ Returns all the reviews that belong to a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-### Create a Review for a Spot based on the Spot's id
+### Create a Comment for a Gift based on the Gift's id
 
-Create and return a new review for a spot specified by id.
+Create and return a new comment for a gift specified by id.
 
 - Require Authentication: true
 - Request
 
   - Method: POST
-  - Route path: /spots/:spotId/reviews
+  - Route path: /gifts/:giftId/comments
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5
+      "comment": "This was an awesome gift!"
     }
     ```
 
@@ -791,9 +725,8 @@ Create and return a new review for a spot specified by id.
     {
       "id": 1,
       "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "giftId": 1,
+      "comment": "This was an awesome gift!",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -810,13 +743,12 @@ Create and return a new review for a spot specified by id.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5"
+        "comment": "Comment text is required"
       }
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -825,102 +757,27 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-- Error response: Review from the current user already exists for the Spot
+### Edit a Comment
 
-  - Status Code: 500
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "User already has a review for this spot"
-    }
-    ```
-
-### Add an Image to a Review based on the Review's id
-
-Create and return a new image for a review specified by id.
-
-- Require Authentication: true
-- Require proper authorization: Review must belong to the current user
-- Request
-
-  - Method: POST
-  - Route path: /reviews/:reviewId/images
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "url": "image url"
-    }
-    ```
-
-- Successful Response
-
-  - Status Code: 201
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "id": 1,
-      "url": "image url"
-    }
-    ```
-
-- Error response: Couldn't find a Review with the specified id
-
-  - Status Code: 404
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Review couldn't be found"
-    }
-    ```
-
-- Error response: Cannot add any more images because there is a maximum of 10
-  images per resource
-
-  - Status Code: 403
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Maximum number of images for this resource was reached"
-    }
-    ```
-
-### Edit a Review
-
-Update and return an existing review.
+Update and return an existing comment.
 
 - Require Authentication: true
 - Require proper authorization: Review must belong to the current user
 - Request
 
   - Method: PUT
-  - Route path: /reviews/:reviewId
+  - Route path: /comments/:commentId
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5
+      "comment": "This was an awesome gift!"
     }
     ```
 
@@ -935,9 +792,8 @@ Update and return an existing review.
     {
       "id": 1,
       "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "giftId": 1,
+      "comment": "This was an awesome gift!",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
     }
@@ -954,8 +810,7 @@ Update and return an existing review.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5"
+        "comment": "Comment text is required"
       }
     }
     ```
@@ -973,16 +828,16 @@ Update and return an existing review.
     }
     ```
 
-### Delete a Review
+### Delete a Comment
 
-Delete an existing review.
+Delete an existing comment.
 
 - Require Authentication: true
 - Require proper authorization: Review must belong to the current user
 - Request
 
   - Method: DELETE
-  - Route path: /reviews/:reviewId
+  - Route path: /comments/:commentId
   - Body: none
 
 - Successful Response
@@ -1007,21 +862,21 @@ Delete an existing review.
 
     ```json
     {
-      "message": "Review couldn't be found"
+      "message": "Comment couldn't be found"
     }
     ```
 
-## BOOKINGS
+## Purchases
 
-### Get all of the Current User's Bookings
+### Get all of the Current User's Purchases
 
-Return all the bookings that the current user has made.
+Return all the purchases that the current user has made.
 
 - Require Authentication: true
 - Request
 
   - Method: GET
-  - Route path: /users/:userId/bookings
+  - Route path: /users/:userId/purchases
   - Body: none
 
 - Successful Response
@@ -1033,26 +888,25 @@ Return all the bookings that the current user has made.
 
     ```json
     {
-      "Bookings": [
+      "Purchases": [
         {
           "id": 1,
-          "spotId": 1,
-          "Spot": {
+          "giftId": 1,
+          "quantity": 2,
+          "totalPrice": 120,
+          "Gifts": {
             "id": 1,
-            "ownerId": 1,
-            "address": "123 Disney Lane",
-            "city": "San Francisco",
-            "state": "California",
-            "country": "United States of America",
-            "lat": 37.7645358,
-            "lng": -122.4730327,
-            "name": "App Academy",
+            "userId": 1,
+            "name": "App Academy Gift 1",
+            "description": "Wonderful Present",
             "price": 123,
+            "quantity": 2,
+            "purchased": true,
+            "createdAt": "2021-11-19 20:39:36",
+            "updatedAt": "2021-11-19 20:39:36",
             "previewImage": "image url"
           },
           "userId": 2,
-          "startDate": "2021-11-19",
-          "endDate": "2021-11-20",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36"
         }
@@ -1060,18 +914,18 @@ Return all the bookings that the current user has made.
     }
     ```
 
-### Get all Bookings for a Spot based on the Spot's id
+### Get all Purchases for a Gift based on a User's id
 
-Return all the bookings for a spot specified by id.
+Return all the purchases for a gift specified by userId.
 
 - Require Authentication: true
 - Request
 
   - Method: GET
-  - Route path: /spots/:spotId/bookings
+  - Route path: /gifts/userId/purchases
   - Body: none
 
-- Successful Response: If you ARE NOT the owner of the spot.
+- Successful Response: If you ARE NOT the owner.
 
   - Status Code: 200
   - Headers:
@@ -1080,17 +934,18 @@ Return all the bookings for a spot specified by id.
 
     ```json
     {
-      "Bookings": [
+      "Purchases": [
         {
-          "spotId": 1,
-          "startDate": "2021-11-19",
-          "endDate": "2021-11-20"
+          "giftId": 1,
+          "userId": 2,
+          "quantity": 1,
+          "totalPrice": 120
         }
       ]
     }
     ```
 
-- Successful Response: If you ARE the owner of the spot.
+- Successful Response: If you ARE the owner.
 
   - Status Code: 200
   - Headers:
@@ -1099,7 +954,7 @@ Return all the bookings for a spot specified by id.
 
     ```json
     {
-      "Bookings": [
+      "Purchases": [
         {
           "User": {
             "id": 2,
@@ -1107,10 +962,11 @@ Return all the bookings for a spot specified by id.
             "lastName": "Smith"
           },
           "id": 1,
-          "spotId": 1,
+          "giftId": 1,
           "userId": 2,
-          "startDate": "2021-11-19",
-          "endDate": "2021-11-20",
+          "quantity": 1,
+          "totalPrice": 120,
+          "text": "I wish you the best with this gift",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36"
         }
@@ -1118,7 +974,7 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Gift with the specified id
 
   - Status Code: 404
   - Headers:
@@ -1127,28 +983,27 @@ Return all the bookings for a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Gift couldn't be found"
     }
     ```
 
-### Create a Booking from a Spot based on the Spot's id
+### Create a Purchase for a Gift based on the Gift's id
 
-Create and return a new booking from a spot specified by id.
+Create and return a new purchase for a gift specified by id.
 
 - Require Authentication: true
-- Require proper authorization: Spot must NOT belong to the current user
 - Request
 
   - Method: POST
-  - Route path: /spots/:spotId/bookings
+  - Route path: /gifts/:giftId/purchases
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20"
+      "quantity": 1,
+      "text": "I wish you the best with this gift"
     }
     ```
 
@@ -1162,10 +1017,94 @@ Create and return a new booking from a spot specified by id.
     ```json
     {
       "id": 1,
-      "spotId": 1,
+      "giftId": 1,
       "userId": 2,
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20",
+      "quantity": 1,
+      "totalPrice": 120,
+      "text": "I wish you the best with this gift",
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36"
+    }
+    ```
+
+- Error response: Body validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Bad Request" // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "quantity": "quantity cannot exceed the requested quantity",
+        }
+    }
+    ```
+
+- Error response: Couldn't find a Gift with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Gift couldn't be found"
+    }
+    ```
+
+- Error response: Purchase conflict
+
+  - Status Code: 403
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Sorry, this gift has already met the requested quantity"
+    }
+    ```
+
+### Edit a Purchase
+
+Update and return an existing purchase.
+
+- Require Authentication: true
+- Require proper authorization: Purchase must belong to the current user
+- Request
+
+  - Method: PUT
+  - Route path: /purchases/:purchaseId
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "quantity": 2,
+      "text": "I wish you the best with these gifts"
+    }
+    ```
+
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "id": 1,
+      "giftId": 1,
+      "userId": 2,
+      "quantity": 2,
+      "totalPrice": 240,
+      "text": "I wish you the best with these gifts",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -1182,13 +1121,12 @@ Create and return a new booking from a spot specified by id.
     {
       "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
       "errors": {
-        "startDate": "startDate cannot be in the past",
-        "endDate": "endDate cannot be on or before startDate"
+        "quantity": "quantity cannot exceed the requested quantity"
       }
     }
     ```
 
-- Error response: Couldn't find a Spot with the specified id
+- Error response: Couldn't find a Purchase with the specified id
 
   - Status Code: 404
   - Headers:
@@ -1197,11 +1135,11 @@ Create and return a new booking from a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found"
+      "message": "Purchase couldn't be found"
     }
     ```
 
-- Error response: Booking conflict
+- Error response: Purchase conflict
 
   - Status Code: 403
   - Headers:
@@ -1210,34 +1148,25 @@ Create and return a new booking from a spot specified by id.
 
     ```json
     {
-      "message": "Sorry, this spot is already booked for the specified dates",
+      "message": "Sorry, this gift has already been purchased with the requested quantity",
       "errors": {
-        "startDate": "Start date conflicts with an existing booking",
-        "endDate": "End date conflicts with an existing booking"
+        "quantity": "quantity cannot exceed the requested quantity"
       }
     }
     ```
 
-### Edit a Booking
+### Delete a Purchase
 
-Update and return an existing booking.
+Delete an existing Purchase.
 
 - Require Authentication: true
-- Require proper authorization: Booking must belong to the current user
+- Require proper authorization: Purchase must belong to the current user or the
+  Gift must belong to the current user
 - Request
 
-  - Method: PUT
-  - Route path: /bookings/:bookingId
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20"
-    }
-    ```
+  - Method: DELETE
+  - Route path: /purchases/:purchaseId
+  - Body: none
 
 - Successful Response
 
@@ -1248,17 +1177,129 @@ Update and return an existing booking.
 
     ```json
     {
-      "id": 1,
-      "spotId": 1,
-      "userId": 2,
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-20 10:06:40"
+      "message": "Successfully deleted"
     }
     ```
 
-- Error response: Body validation errors
+- Error response: Couldn't find a Purchase with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Purchase couldn't be found"
+    }
+    ```
+
+- Error response: Purchases that have been paid can't be deleted
+
+  - Status Code: 403
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Purchases that have been paid can't be deleted"
+    }
+    ```
+
+## LIKES
+
+### Get all Likes on a Gift
+
+Returns all likes on a specific Gift.
+
+- Require Authentication: false
+- Request
+
+  - Method: GET
+  - Route path: /gifts/:giftId/likes
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "likes": [
+        {
+          "id": 1,
+          "userId": 2,
+          "giftId": 3,
+          "createdAt": "2024-12-17 20:39:36",
+          "updatedAt": "2024-12-17 20:39:36"
+        }
+      ]
+    }
+    ```
+
+### Like a Gift
+
+Allows a user to like a specific gift.
+
+- Require Authentication: true
+- Request
+
+  - Method: POST
+  - Route path: /gifts/:giftId/likes
+  - Body:
+
+    ```json
+    {}
+    ```
+
+- Successful Response
+
+  - Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "id": 10,
+      "userId": 1,
+      "giftId": 3,
+      "createdAt": "2024-12-17 20:39:36",
+      "updatedAt": "2024-12-17 20:39:36"
+    }
+    ```
+
+- Error Response: Require authentication
+
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Authentication required"
+    }
+    ```
+
+- Error Response: Couldn't find a Gift with the specified id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Gift not found"
+    }
+    ```
+
+- Error Response: Bad request
 
   - Status Code: 400
   - Headers:
@@ -1267,68 +1308,19 @@ Update and return an existing booking.
 
     ```json
     {
-      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
-      "errors": {
-        "startDate": "startDate cannot be in the past",
-        "endDate": "endDate cannot be on or before startDate"
-      }
+      "message": "User has already liked this gift"
     }
     ```
 
-- Error response: Couldn't find a Booking with the specified id
+### Unlike a Post
 
-  - Status Code: 404
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Booking couldn't be found"
-    }
-    ```
-
-- Error response: Can't edit a booking that's past the end date
-
-  - Status Code: 403
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Past bookings can't be modified"
-    }
-    ```
-
-- Error response: Booking conflict
-
-  - Status Code: 403
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Sorry, this spot is already booked for the specified dates",
-      "errors": {
-        "startDate": "Start date conflicts with an existing booking",
-        "endDate": "End date conflicts with an existing booking"
-      }
-    }
-    ```
-
-### Delete a Booking
-
-Delete an existing booking.
+Allows a user to remove their like from a specific gift.
 
 - Require Authentication: true
-- Require proper authorization: Booking must belong to the current user or the
-  Spot must belong to the current user
 - Request
 
   - Method: DELETE
-  - Route path: /bookings/:bookingId
+  - Route path: /gifts/:giftId/likes/:likeId
   - Body: none
 
 - Successful Response
@@ -1339,49 +1331,21 @@ Delete an existing booking.
   - Body:
 
     ```json
-    {
-      "message": "Successfully deleted"
-    }
-    ```
-
-- Error response: Couldn't find a Booking with the specified id
-
-  - Status Code: 404
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Booking couldn't be found"
-    }
-    ```
-
-- Error response: Bookings that have been started can't be deleted
-
-  - Status Code: 403
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Bookings that have been started can't be deleted"
-    }
+    { "message": "Successfully unliked the gift." }
     ```
 
 ## IMAGES
 
-### Delete a Spot Image
+### Delete a Gift Image
 
-Delete an existing image for a Spot.
+Delete an existing image for a Gift.
 
 - Require Authentication: true
-- Require proper authorization: Spot must belong to the current user
+- Require proper authorization: Gift must belong to the current user
 - Request
 
   - Method: DELETE
-  - Route path: /spots/:spotId/images/:imageId
+  - Route path: /gifts/:giftId/images/:imageId
   - Body: none
 
 - Successful Response
@@ -1397,7 +1361,7 @@ Delete an existing image for a Spot.
     }
     ```
 
-- Error response: Couldn't find a Spot Image with the specified id
+- Error response: Couldn't find a Gift Image with the specified id
 
   - Status Code: 404
   - Headers:
@@ -1406,49 +1370,11 @@ Delete an existing image for a Spot.
 
     ```json
     {
-      "message": "Spot Image couldn't be found"
+      "message": "Gift Image couldn't be found"
     }
     ```
 
-### Delete a Review Image
-
-Delete an existing image for a Review.
-
-- Require Authentication: true
-- Require proper authorization: Review must belong to the current user
-- Request
-
-  - Method: DElETE
-  - Route path: /reviews/:reviewId/images/:imageId
-  - Body: none
-
-- Successful Response
-
-  - Status Code: 200
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Successfully deleted"
-    }
-    ```
-
-- Error response: Couldn't find a Review Image with the specified id
-
-  - Status Code: 404
-  - Headers:
-    - Content-Type: application/json
-  - Body:
-
-    ```json
-    {
-      "message": "Review Image couldn't be found"
-    }
-    ```
-
-## Add Query Filters to Get All Spots
+## Add Query Filters to Get All Gifts
 
 Return spots filtered by query parameters.
 
@@ -1456,7 +1382,7 @@ Return spots filtered by query parameters.
 - Request
 
   - Method: GET
-  - Route path: /spots
+  - Route path: /gifts
   - Query Parameters
     - page: integer, minimum: 1, default: 1
     - size: integer, minimum: 1, maximum: 20, default: 20
