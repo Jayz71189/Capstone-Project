@@ -3,6 +3,7 @@ const router = require("express").Router();
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const giftsRouter = require("./gifts.js");
+const commentsRouter = require("./comments.js");
 
 const { restoreUser } = require("../../utils/auth.js");
 
@@ -16,6 +17,8 @@ router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
 
 router.use("/gifts", giftsRouter);
+
+router.use("/comments", commentsRouter);
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
