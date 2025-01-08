@@ -29,7 +29,7 @@ const validateQuery = [
     .toFloat(),
   query("maxQuantity")
     .optional()
-    .isFloat({ max: 10000 })
+    .isFloat({ max: 9999 })
     .withMessage("Maximum quantity is invalid")
     .toFloat(),
   query("minPrice")
@@ -143,7 +143,7 @@ router.get("/:giftId/comments", requireAuth, async (req, res) => {
       },
     ],
   });
-  return res.status(200).json({ Reviews: reviews });
+  return res.status(200).json({ Comments: comments });
 });
 
 router.get("/:giftId", async (req, res) => {
@@ -229,7 +229,7 @@ router.post("/:giftId/comments", requireAuth, async (req, res, next) => {
       });
     }
     const errors = {};
-    if (!comment) errors.review = "Comment text is required";
+    if (!comment) errors.comment = "Comment text is required";
 
     if (Object.keys(errors).length > 0) {
       const err = new Error("Validation error");
@@ -330,17 +330,17 @@ router.post("/", requireAuth, async (req, res) => {
   const { name, description, price, quantity } = req.body;
 
   // to do change errors
-  if (!name || !description || !price || !quantity) {
-    return res.status(400).json({
-      message: "Bad Request",
-      errors: {
-        name: "Name must be less than 50 characters",
-        description: "Description is required",
-        price: "Price per day must be a positive number",
-        quantity: "quantity must be between 1 and 10,000",
-      },
-    });
-  }
+  // if (!name || !description || !price || !quantity) {
+  //   return res.status(400).json({
+  //     message: "Bad Request",
+  //     errors: {
+  //       name: "Name must be less than 50 characters",
+  //       description: "Description is required",
+  //       price: "Price per day must be a positive number",
+  //       quantity: "quantity must be between 1 and 10,000",
+  //     },
+  //   });
+  // }
 
   if (name.length > 50) {
     return res.status(400).json({
@@ -394,73 +394,27 @@ router.post("/", requireAuth, async (req, res) => {
   );
 });
 
-router.put("/:spotId", requireAuth, async (req, res) => {
+router.put("/:giftId", requireAuth, async (req, res) => {
   try {
     // Validate body fields before creating the Spot
 
-    let spotId = req.params.spotId;
-    const {
-      address,
-      city,
-      state,
-      country,
-      lat,
-      lng,
-      name,
-      description,
-      price,
-    } = req.body;
-
-    if (
-      !address ||
-      !city ||
-      !state ||
-      !country ||
-      !lat ||
-      !lng ||
-      !name ||
-      !description ||
-      !price
-    ) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors: {
-          address: "Street address is required",
-          city: "City is required",
-          state: "State is required",
-          country: "Country is required",
-          lat: "Latitude must be within -90 and 90",
-          lng: "Longitude must be within -180 and 180",
-          name: "Name must be less than 50 characters",
-          description: "Description is required",
-          price: "Price per day must be a positive number",
-        },
-      });
-    }
-
-    if (lat < -90 || lat > 90) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors: {
-          lat: "Latitude must be within -90 and 90",
-        },
-      });
-    }
-
-    if (lng < -180 || lng > 180) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors: {
-          lng: "Longitude must be within -180 and 180",
-        },
-      });
-    }
+    let giftId = req.params.giftId;
+    const { name, description, price, quantity } = req.body;
 
     if (name.length > 50) {
       return res.status(400).json({
         message: "Bad Request",
         errors: {
           name: "Name must be less than 50 characters",
+        },
+      });
+    }
+
+    if (quantity < 1 || quantity >= 10000) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          name: "Quantity must be greater than 0 and less than 10000",
         },
       });
     }
@@ -474,16 +428,16 @@ router.put("/:spotId", requireAuth, async (req, res) => {
       });
     }
 
-    const spot = await Spot.findByPk(spotId);
+    const gift = await Gift.findByPk(giftId);
 
-    if (!spot) {
+    if (!gift) {
       return res.status(404).json({
-        message: "Spot couldn't be found",
+        message: "Gift couldn't be found",
       });
     }
 
     // Step 3: Check if the spot belongs to the current user
-    if (spot.ownerId !== req.user.id) {
+    if (gift.userId !== req.user.id) {
       // assuming req.user.id contains the authenticated user's ID
       return res.status(403).json({
         message: "You do not have permission to edit this spot",
@@ -525,17 +479,13 @@ router.put("/:spotId", requireAuth, async (req, res) => {
     //   price,
     //   ownerId: req.user.id, // Assume the user ID is stored in the decoded JWT
     // });
-    spot.address = address;
-    spot.city = city;
-    spot.state = state;
-    spot.country = country;
-    spot.lat = lat;
-    spot.lng = lng;
-    spot.name = name;
-    spot.description = description;
-    spot.price = price;
-    await spot.save();
-    return res.status(200).json(spot);
+
+    gift.name = name;
+    gift.description = description;
+    gift.price = price;
+    gift.quantity = quantity;
+    await gift.save();
+    return res.status(200).json(gift);
     //   // newSpot);
 
     //   {
@@ -567,29 +517,29 @@ router.put("/:spotId", requireAuth, async (req, res) => {
 //   }
 // });
 
-router.post("/:spotId/images", requireAuth, async (req, res) => {
-  let spotId = req.params.spotId;
+router.post("/:giftId/images", requireAuth, async (req, res) => {
+  let giftId = req.params.giftId;
   let { url, preview } = req.body;
 
   try {
     // Check if the spot exists
-    const spotImage = await Spot.findByPk(spotId);
+    const giftImage = await Gift.findByPk(giftId);
 
-    if (!spotImage) {
-      return res.status(404).json({ message: "Spot couldn't be found" });
+    if (!giftImage) {
+      return res.status(404).json({ message: "Gift couldn't be found" });
     }
 
     // Check if the current user is the owner of the spot
-    if (spotImage.ownerId !== req.user.id) {
+    if (giftImage.userId !== req.user.id) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
     // Create the new SpotImage
-    const newSpotImage = await SpotImage.create({ spotId, url, preview });
+    const newGiftImage = await GiftImage.create({ giftId, url, preview });
 
     // Return the created SpotImage
     res.status(201).json(
-      newSpotImage
+      newGiftImage
       //   id: spotImage.id,
       //   url: spotImage.url,
       //   preview: spotImage.preview,
@@ -601,99 +551,5 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
-
-const editReview = async (req, res) => {
-  const { reviewId } = req.params;
-  const { review, stars } = req.body;
-  const userId = req.user.id; // Assuming `req.user` contains the authenticated user
-
-  try {
-    // Find the review by ID
-    const existingReview = await Review.findByPk(reviewId);
-
-    // Handle case where review is not found
-    if (!existingReview) {
-      return res.status(404).json({ message: "Review couldn't be found" });
-    }
-
-    // Ensure the review belongs to the current user
-    if (existingReview.userId !== userId) {
-      return res.status(403).json({ message: "Unauthorized" });
-    }
-
-    // Validate input
-    if (!review) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors: { review: "Review text is required" },
-      });
-    }
-    if (!Number.isInteger(stars) || stars < 1 || stars > 5) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors: { stars: "Stars must be an integer from 1 to 5" },
-      });
-    }
-
-    router.get("/:spotId/reviews", requireAuth, async (req, res) => {
-      let spotId = req.params.spotId;
-
-      try {
-        // Check if the spot exists
-        const spot = await Spot.findByPk(spotId);
-
-        if (!spot) {
-          return res.status(404).json({ message: "Spot couldn't be found" });
-        }
-
-        // Fetch all reviews for the spot
-        const reviews = await Review.findAll({
-          where: { spotId },
-          include: [
-            {
-              model: User,
-              attributes: ["id", "firstName", "lastName"],
-            },
-            {
-              model: ReviewImage,
-              attributes: ["id", "url"],
-            },
-          ],
-        });
-
-        // Format the response
-        // const formattedReviews = reviews.map((review) => ({
-        //   id: review.id,
-        //   userId: review.userId,
-        //   spotId: review.spotId,
-        //   review: review.review,
-        //   stars: review.stars,
-        //   createdAt: review.createdAt,
-        //   updatedAt: review.updatedAt,
-        //   User: review.User,
-        //   ReviewImages: review.ReviewImages,
-        // }));
-
-        // return res.status(200).json({ Reviews: formattedReviews });
-
-        return res.status(200).json(reviews);
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
-      }
-    });
-
-    // Update the review
-    existingReview.review = review;
-    existingReview.stars = stars;
-    await existingReview.save();
-
-    // Return the updated review
-    return res.status(200).json(existingReview);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-};
 
 module.exports = router;
