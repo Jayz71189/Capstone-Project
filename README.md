@@ -914,7 +914,7 @@ Return all the purchases that the current user has made.
     }
     ```
 
-### Get all Purchases for a Gift based on a User's id
+### Get all Purchases for a Gift based on a Gift's id
 
 Return all the purchases for a gift specified by userId.
 
@@ -937,7 +937,6 @@ Return all the purchases for a gift specified by userId.
       "Purchases": [
         {
           "giftId": 1,
-          "userId": 2,
           "quantity": 1,
           "totalPrice": 120
         }
