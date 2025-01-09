@@ -1249,11 +1249,7 @@ Allows a user to like a specific gift.
 
   - Method: POST
   - Route path: /gifts/:giftId/likes
-  - Body:
-
-    ```json
-    {}
-    ```
+  - Body: none
 
 - Successful Response
 
