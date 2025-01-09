@@ -1,6 +1,6 @@
 "use strict";
 
-const { Comment } = require("../models");
+const { Purchase } = require("../models");
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -11,22 +11,28 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     try {
-      await Comment.bulkCreate(
+      await Purchase.bulkCreate(
         [
           {
+            id: 1,
             userId: 1,
             giftId: 1,
-            comment: "This was an awesome gift!",
+            totalPrice: 123.0,
+            quantity: 1,
           },
           {
-            userId: 2,
+            id: 2,
+            userId: 1,
             giftId: 2,
-            comment: "Nice gift, but a bit expensive.",
+            totalPrice: 246.0,
+            quantity: 2,
           },
           {
-            userId: 3,
+            id: 3,
+            userId: 1,
             giftId: 3,
-            comment: "Not great, the item was made cheaply.",
+            totalPrice: 469.0,
+            quantity: 3,
           },
         ],
         { validate: true }
@@ -47,7 +53,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = "Comments";
+    options.tableName = "Purchases";
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, null, {});
     /**

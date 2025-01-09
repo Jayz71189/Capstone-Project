@@ -5,7 +5,7 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { requireAuth } = require("../../utils/auth");
 const { Op, Sequelize } = require("sequelize");
 
-const { Gift, GiftImage, Comment, User } = require("../../db/models");
+const { Gift, GiftImage, Comment, User, Purchase } = require("../../db/models");
 
 //const { requireSpotOwnership } = require("../../utils/auth");
 
@@ -286,7 +286,7 @@ router.get("/:giftId/comments", async (req, res) => {
       userId: comment.userId,
       giftId: comment.spotId,
       comment: comment.review,
-      User: comment.User,
+      // User: comment.User,
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt,
     }));
@@ -297,6 +297,95 @@ router.get("/:giftId/comments", async (req, res) => {
     return res.status(500).json({
       message: "Internal Server Error",
     });
+  }
+});
+
+router.get("/:giftId/purchases", async (req, res) => {
+  try {
+    let giftId = req.params.giftId;
+    let gift = await Gift.findByPk(giftId);
+
+    // if (spot) {
+    //   res.json(spot); // The response will now include previewImageUrl }
+    if (!gift) {
+      res.status(404).json({ message: "Gift couldn't be found" });
+    }
+    const purchases = await Purchase.findAll({
+      where: { giftId: giftId },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "firstName", "lastName"],
+        },
+      ],
+    });
+
+    if (!purchases || purchases.length === 0) {
+      return res.status(404).json({
+        message: "No purchases found for this gift",
+      });
+    }
+
+    // Format the response
+    const purchaseDetails = purchases.map((purchase) => ({
+      id: purchase.id,
+      giftId: purchase.giftId,
+      userId: purchase.userId,
+      quantity: purchase.quantity,
+      totalPrice: purchase.totalPrice,
+      text: purchase.text,
+      // User: comment.User,
+      createdAt: purchase.createdAt,
+      updatedAt: purchase.updatedAt,
+    }));
+
+    return res.status(200).json({ Purchases: purchaseDetails });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+});
+
+router.post("/:giftId/purchases", requireAuth, async (req, res, next) => {
+  try {
+    const giftId = req.params.giftId;
+    const { quantity, totalPrice, text } = req.body;
+    const userId = parseInt(req.user.id);
+
+    const gift = await Gift.findByPk(giftId);
+
+    if (!gift) {
+      return res.status(404).json({
+        message: "Gift couldn't be found",
+      });
+    }
+    const errors = {};
+    if (!quantity) errors.quantity = "quantity is required";
+
+    if (Object.keys(errors).length > 0) {
+      const err = new Error("Validation error");
+      err.status = 400;
+      err.errors = errors;
+      return next(err);
+    }
+    const newPurchase = await Purchase.create({
+      userId,
+      giftId,
+      quantity,
+      totalPrice,
+      text,
+    });
+
+    return res.status(201).json(newPurchase);
+
+    //{ id: image.id, url: image.url });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
 

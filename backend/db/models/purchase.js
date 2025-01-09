@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Gift extends Model {
+  class Purchase extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,25 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Gift.belongsTo(models.User, { foreignKey: "userId", as: "User" });
-      Gift.hasMany(models.Comment, {
-        foreignKey: "giftId",
-      });
-      //   Spot.hasMany(models.Booking, {
-      //     foreignKey: "spotId",
-      //   });
-      // Spot.belongsTo(models.SpotImage, {
-      //   foreignKey: "id",
-      //   as: "PreviewImage",
-      // });
+      Purchase.belongsTo(models.User, { foreignKey: "userId" });
+      Purchase.belongsTo(models.Gift, { foreignKey: "giftId" });
 
-      Gift.hasMany(models.GiftImage, {
+      Purchase.hasMany(models.Comment, {
         foreignKey: "giftId",
-        as: "GiftImages",
       });
     }
   }
-  Gift.init(
+  Purchase.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -39,21 +29,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      name: {
-        type: DataTypes.STRING,
+      giftId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {
-          len: [1, 26],
-        },
       },
-      description: {
-        type: DataTypes.TEXT,
+      quantity: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {
-          notEmpty: { msg: "Description is required" },
-        },
       },
-      price: {
+      totalPrice: {
         type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
@@ -61,19 +45,15 @@ module.exports = (sequelize, DataTypes) => {
           isFloat: true,
         },
       },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      previewImage: {
-        type: DataTypes.STRING,
+      text: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
     },
     {
       sequelize,
-      modelName: "Gift",
+      modelName: "Purchase",
     }
   );
-  return Gift;
+  return Purchase;
 };
