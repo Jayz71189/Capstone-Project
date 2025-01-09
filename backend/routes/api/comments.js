@@ -146,23 +146,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-const validateReview = [
-  check("review").notEmpty().withMessage("Review text is required"),
-  check("stars")
-    .notEmpty()
-    .isFloat({ min: 1, max: 5 })
-    .withMessage("Stars must be an integer from 1 to 5")
-    .toFloat(),
+const validateComment = [
+  check("comment").notEmpty().withMessage("Comment text is required"),
   handleValidationErrors,
 ];
 
 router.put(
-  "/:reviewId",
+  "/:commentId",
   requireAuth,
-  validateReview,
+  validateComment,
   async (req, res, next) => {
     try {
-      let { reviewId } = req.params;
+      let { commentId } = req.params;
       //let userId = req.params.userId;
       // Make sure the current user is authorized to view their reviews
       // if (req.user.id !== parseInt(userId, 10)) {
@@ -171,25 +166,25 @@ router.put(
 
       // Fetch reviews with related Spot and ReviewImages
 
-      const { review, stars } = req.body;
+      const { comment } = req.body;
 
-      if (!review || review.length === 0) {
+      if (!comment || comment.length === 0) {
         return res.status(404).json({
-          message: "No reviews found for this user",
+          message: "No comments found for this user",
         });
       }
       // Return the reviews in the specified format
 
-      const reviewVar = await Review.findByPk(reviewId);
+      const commentVar = await Comment.findByPk(commentId);
 
-      if (!reviewVar) {
-        const err = new Error("Review couldn't be found");
+      if (!commentVar) {
+        const err = new Error("Comment couldn't be found");
         err.status = 404;
         return next(err);
       }
 
       // Ensure the review belongs to the current user
-      if (reviewVar.userId !== req.user.id) {
+      if (commentVar.userId !== req.user.id) {
         const err = new Error("Forbidden");
         err.status = 403;
         return next(err);
@@ -208,9 +203,7 @@ router.put(
       // }
 
       const errors = {};
-      if (!review) errors.review = "Review text is required";
-      if (!stars || stars < 1 || stars > 5)
-        errors.stars = "Stars must be an integer from 1 to 5";
+      if (!comment) errors.comment = "Comment text is required";
       if (Object.keys(errors).length > 0) {
         const err = new Error("Validation error");
         err.status = 400;
@@ -219,27 +212,26 @@ router.put(
       }
 
       // reviewVar.review = review;
-      // reviewVar.stars = stars;
-      await reviewVar.update({
-        review,
-        stars,
+
+      await commentVar.update({
+        comment,
       });
-      return res.status(200).json(reviewVar);
+      return res.status(200).json(commentVar);
     } catch (error) {
       console.error(error);
       res
         .status(500)
-        .json({ message: "An error occurred while fetching reviews" });
+        .json({ message: "An error occurred while fetching comments" });
     }
   }
 );
 
-router.delete("/:reviewId", requireAuth, async (req, res) => {
+router.delete("/:commentId", requireAuth, async (req, res) => {
   try {
-    let reviewId = parseInt(req.params.reviewId);
+    let commentId = parseInt(req.params.commentId);
     const userId = parseInt(req.user.id);
-    let review = await Review.findOne({
-      where: { id: reviewId },
+    let comment = await Comment.findOne({
+      where: { id: commentId },
     });
     //   include: {
     //     model: require("../../db/models/spotImage"),
@@ -247,16 +239,17 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
     //     attributes: ["previewImageUrl"], // Only include the URL of the preview image
     //   },
 
-    if (!review) {
-      res.status(404).json({ message: "Review couldn't be found" });
+    if (!comment) {
+      res.status(404).json({ message: "Comment couldn't be found" });
     }
-    if (review.userId !== userId) {
+    if (comment.userId !== userId) {
       return res.status(403).json({
-        message: "Unauthorized: You do not have permission to delete this spot",
+        message:
+          "Unauthorized: You do not have permission to delete this comment",
       });
     }
 
-    await review.destroy();
+    await comment.destroy();
     return res.status(200).json({ message: "Successfully deleted" });
   } catch (error) {
     //console.error("Error retrieving spot", error);

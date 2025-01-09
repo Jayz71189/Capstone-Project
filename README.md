@@ -500,7 +500,8 @@ Updates and returns an existing gift.
     {
       "name": "App Academy",
       "description": "Wonderful Present",
-      "price": 123
+      "price": 123,
+      "quantity": 1
     }
     ```
 
@@ -518,6 +519,7 @@ Updates and returns an existing gift.
       "name": "App Academy",
       "description": "Wonderful Present",
       "price": 123,
+      "quantity": 1,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
     }
@@ -536,7 +538,8 @@ Updates and returns an existing gift.
       "errors": {
         "name": "Name must be less than 50 characters",
         "description": "Description is required",
-        "price": "Price must be a positive number"
+        "price": "Price must be a positive number",
+        "quantity": "Quantity must be between 1 and 9999"
       }
     }
     ```
@@ -634,9 +637,6 @@ Returns all the comments written by the current user.
             "description": "Wonderful Present",
             "price": 123,
             "quantity": 2,
-            "purchased": true,
-            "createdAt": "2021-11-19 20:39:36",
-            "updatedAt": "2021-11-19 20:39:36",
             "previewImage": "image url"
           }
         }
@@ -891,9 +891,13 @@ Return all the purchases that the current user has made.
       "Purchases": [
         {
           "id": 1,
+          "userId": 2,
           "giftId": 1,
           "quantity": 2,
           "totalPrice": 120,
+          "text": "I wish you the best with this gift",
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
           "Gifts": {
             "id": 1,
             "userId": 1,
@@ -901,14 +905,13 @@ Return all the purchases that the current user has made.
             "description": "Wonderful Present",
             "price": 123,
             "quantity": 2,
-            "purchased": true,
-            "createdAt": "2021-11-19 20:39:36",
-            "updatedAt": "2021-11-19 20:39:36",
             "previewImage": "image url"
           },
-          "userId": 2,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
+          "Users": {
+            "userId": 2,
+            "firstName": "John",
+            "lastName": "Smith"
+          }
         }
       ]
     }
@@ -1002,6 +1005,7 @@ Create and return a new purchase for a gift specified by id.
     ```json
     {
       "quantity": 1,
+      "totalPrice": 160,
       "text": "I wish you the best with this gift"
     }
     ```
@@ -1085,7 +1089,8 @@ Update and return an existing purchase.
     ```json
     {
       "quantity": 2,
-      "text": "I wish you the best with these gifts"
+      "totalPrice": 320,
+      "text": "I wish you the best with these gifts" (optional)
     }
     ```
 
@@ -1307,7 +1312,7 @@ Allows a user to like a specific gift.
     }
     ```
 
-### Unlike a Post
+### Unlike a Gift
 
 Allows a user to remove their like from a specific gift.
 

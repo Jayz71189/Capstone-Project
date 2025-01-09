@@ -4,6 +4,7 @@ const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const giftsRouter = require("./gifts.js");
 const commentsRouter = require("./comments.js");
+const purchasesRouter = require("./purchases.js");
 
 const { restoreUser } = require("../../utils/auth.js");
 
@@ -19,6 +20,8 @@ router.use("/users", usersRouter);
 router.use("/gifts", giftsRouter);
 
 router.use("/comments", commentsRouter);
+
+router.use("/purchases", purchasesRouter);
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
