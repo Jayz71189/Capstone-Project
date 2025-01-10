@@ -5,7 +5,14 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { requireAuth } = require("../../utils/auth");
 const { Op, Sequelize } = require("sequelize");
 
-const { Gift, GiftImage, Comment, User, Purchase } = require("../../db/models");
+const {
+  Gift,
+  GiftImage,
+  Comment,
+  User,
+  Purchase,
+  Like,
+} = require("../../db/models");
 
 //const { requireSpotOwnership } = require("../../utils/auth");
 
@@ -638,6 +645,103 @@ router.post("/:giftId/images", requireAuth, async (req, res) => {
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
+  }
+});
+
+// Get all Likes by a Gift's id
+router.get("/:giftId/likes", requireAuth, async (req, res) => {
+  const { giftId } = req.params;
+  const giftIdNumber = parseInt(giftId);
+
+  const gift = await Gift.findByPk(giftIdNumber);
+
+  if (!gift) {
+    return res.status(404).json({
+      message: "Gift couldn't be found",
+    });
+  }
+
+  const likes = await Like.findAll({
+    where: {
+      giftId: giftIdNumber,
+    },
+  });
+  return res.status(200).json({ Likes: likes });
+});
+
+// Like a Gift
+
+router.post("/:giftId/likes", requireAuth, async (req, res, next) => {
+  try {
+    const giftId = req.params.giftId;
+    const userId = parseInt(req.user.id);
+
+    const gift = await Gift.findByPk(giftId, {
+      include: [
+        {
+          model: Like,
+          as: "Like",
+        },
+      ],
+    });
+
+    if (!gift) {
+      return res.status(404).json({
+        message: "Gift not found",
+      });
+    }
+
+    // console.log(gift.Like);
+
+    if (gift.Like.some((like) => like.userId === userId)) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          name: "Already liked",
+        },
+      });
+    }
+
+    const newLike = await Like.create({
+      userId,
+      giftId,
+    });
+
+    return res.status(201).json(newLike);
+
+    //{ id: image.id, url: image.url });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+});
+
+// Unlike a Gift
+router.delete("/:giftId/likes/:likeId", requireAuth, async (req, res) => {
+  try {
+    let likeId = parseInt(req.params.likeId);
+    const userId = parseInt(req.user.id);
+    let like = await Like.findOne({
+      where: { id: likeId },
+    });
+
+    if (!like) {
+      res.status(404).json({ message: "Like couldn't be found" });
+    }
+    if (like.userId !== userId) {
+      return res.status(403).json({
+        message:
+          "Unauthorized: You do not have permission to delete this comment",
+      });
+    }
+
+    await like.destroy();
+    return res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    //console.error("Error retrieving spot", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
