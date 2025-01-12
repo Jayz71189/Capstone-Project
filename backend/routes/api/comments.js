@@ -257,4 +257,37 @@ router.delete("/:commentId", requireAuth, async (req, res) => {
   }
 });
 
+const getReviewsBySpotId = async (req, res) => {
+  const { spotId } = req.params;
+
+  try {
+    // Check if the spot exists
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+      return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    // Fetch reviews for the specified spot
+    const reviews = await Review.findAll({
+      where: { spotId },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "firstName", "lastName"], // Include reviewer info
+        },
+        {
+          model: ReviewImage,
+          attributes: ["id", "url"], // Include review images
+        },
+      ],
+    });
+
+    // Return reviews
+    return res.status(200).json({ Reviews: reviews });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = router;
