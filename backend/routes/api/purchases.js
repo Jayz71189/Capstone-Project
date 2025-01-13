@@ -127,4 +127,35 @@ router.put(
   }
 );
 
+router.delete("/:purchaseId", requireAuth, async (req, res) => {
+  try {
+    let purchaseId = parseInt(req.params.purchaseId);
+    const userId = parseInt(req.user.id);
+    let purchase = await Purchase.findOne({
+      where: { id: purchaseId },
+    });
+    //   include: {
+    //     model: require("../../db/models/spotImage"),
+    //     as: "previewImage", // Use the alias defined in the model
+    //     attributes: ["previewImageUrl"], // Only include the URL of the preview image
+    //   },
+
+    if (!purchase) {
+      res.status(404).json({ message: "Purchase couldn't be found" });
+    }
+    if (purchase.userId !== userId) {
+      return res.status(403).json({
+        message:
+          "Unauthorized: You do not have permission to delete this purchase",
+      });
+    }
+
+    await purchase.destroy();
+    return res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    //console.error("Error retrieving spot", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

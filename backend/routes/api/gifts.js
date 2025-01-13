@@ -371,6 +371,15 @@ router.post("/:giftId/purchases", requireAuth, async (req, res, next) => {
     const errors = {};
     if (!quantity) errors.quantity = "quantity is required";
 
+    if (quantity > gift.quantity) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          name: "Quantity cannot exceed the requested quantity",
+        },
+      });
+    }
+
     if (Object.keys(errors).length > 0) {
       const err = new Error("Validation error");
       err.status = 400;
