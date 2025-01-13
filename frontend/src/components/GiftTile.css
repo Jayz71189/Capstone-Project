@@ -1,0 +1,25 @@
+.spot-tile {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.spot-tile:hover {
+  transform: scale(1.05);
+}
+
+.spot-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.spot-info {
+  padding: 10px;
+}
+
+.star-icon {
+  color: gold;
+}
