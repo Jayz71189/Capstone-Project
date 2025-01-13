@@ -1,0 +1,10 @@
+ul {
+  text-align: right;
+  list-style-type: none;
+
+  /* Optional: If you want the entire <ul> to be aligned to the right */
+}
+
+.hidden {
+  display: none;
+}
