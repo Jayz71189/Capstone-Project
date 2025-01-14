@@ -605,7 +605,7 @@ Returns all the comments written by the current user.
 - Request
 
   - Method: GET
-  - Route path: /users/:userId/reviews
+  - Route path: /users/:userId/comments
   - Body: none
 
 - Successful Response

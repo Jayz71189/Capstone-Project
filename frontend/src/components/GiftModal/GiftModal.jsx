@@ -8,12 +8,12 @@ function GiftModal({
   existingName,
   existingDescription,
   refreshGifts,
-  exisitngQuanity,
+  existingQuantity,
   existingPrice,
 }) {
   const [name, setName] = useState(existingName || "");
   const [description, setDescription] = useState(existingDescription || "");
-  const [quantity, setQuantity] = useState(exisitngQuanity || "");
+  const [quantity, setQuantity] = useState(existingQuantity || "");
   const [price, setPrice] = useState(existingPrice || "");
   const { closeModal } = useModal();
   const dispatch = useDispatch();
@@ -42,8 +42,8 @@ function GiftModal({
   };
 
   return (
-    <div id="create-post-modal">
-      <h2 style={{ fontFamily: "Sour Gummy" }}>Edit Post</h2>
+    <div id="create-gift-modal">
+      <h2 style={{ fontFamily: "Sour Gummy" }}>Edit Gift</h2>
       <form onSubmit={handleSubmit} className="form">
         <label style={{ fontFamily: "Sour Gummy" }}>
           Name:
@@ -61,7 +61,7 @@ function GiftModal({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
-            placeholder="Write your post description here"
+            placeholder="Write your gift description here"
           />
         </label>
         <label style={{ fontFamily: "Sour Gummy" }}>

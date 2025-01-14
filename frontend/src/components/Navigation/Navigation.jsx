@@ -3,6 +3,8 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import CreateGiftModal from "../CreateGiftModal/CreateGiftModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -10,6 +12,12 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul>
+      {sessionUser && (
+        <OpenModalButton
+          modalComponent={<CreateGiftModal />}
+          buttonText="Create New Gift"
+        />
+      )}
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
