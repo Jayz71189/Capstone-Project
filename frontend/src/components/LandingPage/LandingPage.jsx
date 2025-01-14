@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 // import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-// import { useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 // import { PiDotsThreeOutlineFill } from "react-icons/pi";
 // import { thunkLoadLikes } from "../../redux/likes";
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import LikeModal from "../LikeModal/LikeModal";
 // import CommentsModal from "../CommentsModal/CommentsModal";
 // import FollowModal from "../FollowModal/FollowModal";
-// import GiftTile from "../GiftTile";
+import GiftTile from "../GiftTile";
 // import SignupFormModal from "../SignupFormModal/SignupFormModal";
 // import LoginFormModal from "../LoginFormModal/LoginFormModal";
 // import GiftModal from "../GiftModal/GiftModal";
@@ -30,7 +30,7 @@ function LandingPage() {
   const { closeModal } = useModal();
   //   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const giftList = useSelector((state) => Object.values(state.gifts));
+  // const giftList = useSelector((state) => Object.values(state.gifts));
   //   const sessionUser = useSelector((state) => state.session.user);
   //   const likes = useSelector((state) => state.likes);
   //   const follows = useSelector((state) => state.follows);
@@ -123,23 +123,23 @@ function LandingPage() {
   console.log(gifts);
 
   return (
-    // <div className="landing-page">
-    //   {Array.isArray(gifts) && gifts.length > 0 ? (
-    //     gifts.map((gift) => <GiftTile key={gift.id} gift={gift} />)
-    //   ) : (
-    //     <div>No gifts available</div>
-    //   )}
-    // </div>
-    <>
-      <h1>Gifts</h1>
-      {gifts?.map(({ id, gift }) => (
-        <p key={id}>{gift}</p>
-      ))}
-      <h1>Gift Lists</h1>
-      {giftList?.map(({ id, gift }) => (
-        <p key={id}>{gift}</p>
-      ))}
-    </>
+    <div className="landing-page">
+      {Array.isArray(gifts) && gifts.length > 0 ? (
+        gifts.map((gift) => <GiftTile key={gift.id} gift={gift} />)
+      ) : (
+        <div>No gifts available</div>
+      )}
+    </div>
+    //     <>
+    //       <h1>Gifts</h1>
+    //       {gifts?.map(({ id, gift }) => (
+    //         <p key={id}>{gift}</p>
+    //       ))}
+    //       <h1>Gift Lists</h1>
+    //       {giftList?.map(({ id, gift }) => (
+    //         <p key={id}>{gift}</p>
+    //       ))}
+    //     </>
   );
 }
 

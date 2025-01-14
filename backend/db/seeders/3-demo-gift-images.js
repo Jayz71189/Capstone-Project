@@ -15,7 +15,7 @@ module.exports = {
         {
           id: 1,
           giftId: 1,
-          url: "https://a0.muscache.com/im/pictures/miso/Hosting-21409981/original/a8fa243d-dac8-4238-93e5-f7aa33072ff8.jpeg?im_w=1200&im_format=avif",
+          url: "https://images.zola.com/4252dd7b-edec-4afd-a164-a8c64d7e8621?w=84",
           preview: true, // Marked as preview image
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -23,7 +23,7 @@ module.exports = {
         {
           id: 2,
           giftId: 2,
-          url: "https://a0.muscache.com/im/pictures/13507508/edc9eb7f_original.jpg?im_w=1200&im_format=avif",
+          url: "https://images.zola.com/90efc29b-375d-4ee3-86b3-bcda4299f106?w=84",
           preview: true, // Not marked as preview
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -31,7 +31,7 @@ module.exports = {
         {
           id: 3,
           giftId: 3,
-          url: "https://a0.muscache.com/im/pictures/miso/Hosting-313113/original/db974e45-6bfb-437d-ab51-8ecaba1f4ee0.jpeg?im_w=1200&im_format=avif",
+          url: "https://images.zola.com/75533730-a111-4f86-af4c-6a3ea6efd9c9?w=320",
           preview: true, // Marked as preview image
           createdAt: new Date(),
           updatedAt: new Date(),
