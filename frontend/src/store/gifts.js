@@ -18,7 +18,7 @@ const deleteGift = (giftId) => ({
 });
 
 export const thunkCreateGift = (formData) => async (dispatch) => {
-  const response = await fetch("/api/gifts/create", {
+  const response = await fetch("/api/gifts", {
     method: "POST",
     body: formData,
   });
@@ -35,7 +35,7 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 
 export const thunkUpdateGift =
   (postId, title, description) => async (dispatch) => {
-    const response = await fetch(`/api/gifts/${giftId}/update`, {
+    const response = await fetch(`/api/gifts/${giftId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, description, price, quantity }),

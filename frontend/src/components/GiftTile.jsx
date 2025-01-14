@@ -33,7 +33,7 @@ const GiftTile = ({ gift }) => {
       <div className="gift-info">
         <h3>{name}</h3>
         <p>{`${description}`}</p>
-        <p>{`${quantity}`}</p>
+        <p>{`Quantity Requested: ${quantity}`}</p>
         <p>{`$${price} / item`}</p>
 
         <p>
