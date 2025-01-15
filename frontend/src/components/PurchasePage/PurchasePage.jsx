@@ -44,7 +44,7 @@ function PurchasePage() {
               <div key={purchase.id} className="purchase_div">
                 <div>
                   <a href={`/${purchase.purchase_username}`} id="user_tag">
-                    {follow.purchase_username}
+                    {purchase.purchase_username}
                   </a>
                 </div>
                 <div className="purchase-modal_">

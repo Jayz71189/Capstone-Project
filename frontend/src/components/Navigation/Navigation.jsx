@@ -27,6 +27,9 @@ function Navigation({ isLoaded }) {
       <li>
         <NavLink to="/comments">My Comments</NavLink>
       </li>
+      <li>
+        <NavLink to="/profile">My Profile</NavLink>
+      </li>
 
       {isLoaded && (
         <li>

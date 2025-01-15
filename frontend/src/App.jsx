@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation/Navigation";
 import * as sessionActions from "./store/session";
 import LikesPage from "./components/LikesPage/LikesPage";
 import CommentsPage from "./components/CommentsPage/CommentsPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/comments",
         element: <CommentsPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
     ],
   },
