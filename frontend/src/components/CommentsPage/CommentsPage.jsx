@@ -36,7 +36,7 @@ function CommentsPage() {
   return (
     <div>
       <h1>Comments</h1>
-      <div className="follows">
+      <div className="purchases">
         {comments.length === 0 ? (
           <p>You have not made any comments.</p>
         ) : (

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
-import { thunkLoadLikes } from "../../redux/likes";
-// import { thunkLoadFollows } from "../../redux/follows";
+import { thunkLoadLikes } from "../../store/likes";
+import { thunkLoadPurchase } from "../../store/purchases";
 import LikeModal from "../LikeModal/LikeModal";
 import CommentsModal from "../CommentsModal/CommentsModal";
-// import FollowModal from "../FollowModal/FollowModal";
+import PurchaseModal from "../PurchaseModal/PurchaseModal";
 // import PostModal from '../PostModal/PostModal';
 import { useModal } from "../../context/Modal";
 import "./LikesPage.css";
@@ -19,7 +19,7 @@ function LikesPage() {
   const [followStatus, setFollowStatus] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const sessionUser = useSelector(state => state.session.user);
+  //   const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     fetch("/api/likes/current")
@@ -33,7 +33,7 @@ function LikesPage() {
         }
       });
 
-    // dispatch(thunkLoadFollows());
+    dispatch(thunkLoadPurchase());
     dispatch(thunkLoadLikes());
   }, [dispatch, errors]);
 
@@ -49,25 +49,25 @@ function LikesPage() {
         }
       });
 
-    dispatch(thunkLoadFollows());
+    dispatch(thunkLoadPurchase());
     dispatch(thunkLoadLikes());
   };
 
-  // const refreshPosts = async () => {
-  //     fetch('/api/likes/current')
-  //     .then((res) => res.json())
-  //     .then((data) => setLikes(data.likes))
-  //     .catch(async (res) => {
+  //   const refreshGifts = async () => {
+  //     fetch("/api/likes/current")
+  //       .then((res) => res.json())
+  //       .then((data) => setLikes(data.likes))
+  //       .catch(async (res) => {
   //         const data = await res.json();
-  //         if(data && data.errors) {
-  //             setErrors(data.errors);
-  //             console.log(errors);
+  //         if (data && data.errors) {
+  //           setErrors(data.errors);
+  //           console.log(errors);
   //         }
-  //     });
+  //       });
 
-  //     dispatch(thunkLoadFollows());
+  //     dispatch(thunkLoadPurchase());
   //     dispatch(thunkLoadLikes());
-  // };
+  //   };
 
   const checkFollowStatus = async (username) => {
     try {
@@ -103,7 +103,7 @@ function LikesPage() {
 
   const heart = (postId) => (fillHeart[postId] ? <FaHeart /> : <FaRegHeart />);
 
-  const refreshFollows = async () => {
+  const refreshPurchases = async () => {
     const updatedFollowStatus = {};
     for (const like of likes) {
       const { is_following, note } = await checkFollowStatus(
@@ -120,11 +120,11 @@ function LikesPage() {
       note: "",
     };
     setModalContent(
-      <FollowModal
+      <PurchaseModal
         userId={like.poster_id}
-        isFollowing={userFollowStatus.is_following}
+        isPurchased={userFollowStatus.is_following}
         existingNote={userFollowStatus.note}
-        refreshFollows={refreshFollows}
+        refreshPurchases={refreshPurchases}
       />
     );
   };

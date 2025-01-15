@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-// import { thunkLoadLikes } from '../../redux/likes';
-// import LikeModal from '../LikeModal/LikeModal';
-// import CommentsModal from '../CommentsModal/CommentsModal';
+import { thunkLoadLikes } from "../../redux/likes";
+import LikeModal from "../LikeModal/LikeModal";
+import CommentsModal from "../CommentsModal/CommentsModal";
 import GiftModal from "../GiftModal/GiftModal";
 import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
@@ -78,7 +78,7 @@ function GiftPage() {
   const openLikesModal = () => {
     setModalContent(
       <LikeModal
-        postId={post.id}
+        giftId={gift.id}
         isLiked={isLiked}
         likeId={likeId}
         existingNote={likeNote}
@@ -119,13 +119,13 @@ function GiftPage() {
           <div className="user_info">
             {" "}
             {handleUser()}
-            {sessionUser && sessionUser.id === post.user_id && (
+            {sessionUser && sessionUser.id === gift.user_id && (
               <div className="comment_dots_container">
                 <div
                   className="comment_dots"
                   onClick={(e) => {
                     e.stopPropagation();
-                    openPostModal();
+                    openGiftModal();
                   }}
                 >
                   <PiDotsThreeOutlineFill />

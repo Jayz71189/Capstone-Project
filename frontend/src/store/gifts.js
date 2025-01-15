@@ -34,7 +34,7 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 };
 
 export const thunkUpdateGift =
-  (postId, title, description) => async (dispatch) => {
+  (giftId, name, description, price, quantity) => async (dispatch) => {
     const response = await fetch(`/api/gifts/${giftId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ const giftsReducer = (state = initialState, action) => {
 
     case UPDATE_GIFT: {
       const updatedGifts = state.gifts.map((gift) =>
-        gift.id === action.payload.id ? { ...gift, ...action.payload } : post
+        gift.id === action.payload.id ? { ...gift, ...action.payload } : gift
       );
       return { ...state, gifts: updatedGifts };
     }

@@ -21,6 +21,13 @@ function Navigation({ isLoaded }) {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+      <li>
+        <NavLink to="/likes">My Likes</NavLink>
+      </li>
+      <li>
+        <NavLink to="/comments">My Comments</NavLink>
+      </li>
+
       {isLoaded && (
         <li>
           <ProfileButton user={sessionUser} />
