@@ -33,6 +33,9 @@ function CommentsPage() {
       });
   };
 
+  console.log("comments");
+  console.log(comments);
+
   return (
     <div>
       <h1>Comments</h1>
@@ -40,7 +43,7 @@ function CommentsPage() {
         {comments.length === 0 ? (
           <p>You have not made any comments.</p>
         ) : (
-          comments.reverse().map((comment) => {
+          comments.map((comment) => {
             return (
               <div key={comment.id} className="comment_div">
                 <div className="comment">{comment.comment}</div>

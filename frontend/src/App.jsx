@@ -8,6 +8,8 @@ import * as sessionActions from "./store/session";
 import LikesPage from "./components/LikesPage/LikesPage";
 import CommentsPage from "./components/CommentsPage/CommentsPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import PurchasePage from "./components/PurchasePage/PurchasePage";
+import GiftPage from "./components/GiftPage/GiftPage";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "/purchases",
+        element: <PurchasePage />,
+      },
+      {
+        path: "/gifts/:giftId",
+        element: <GiftPage />,
       },
     ],
   },

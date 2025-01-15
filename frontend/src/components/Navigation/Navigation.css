@@ -1,10 +1,27 @@
 ul {
   text-align: right;
   list-style-type: none;
+  flex: auto;
+  flex-direction: column;
 
   /* Optional: If you want the entire <ul> to be aligned to the right */
 }
 
+li {
+  text-align: center;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+}
+
 .hidden {
   display: none;
+}
+
+.button {
+  text-align: right;
+  display: flex;
 }

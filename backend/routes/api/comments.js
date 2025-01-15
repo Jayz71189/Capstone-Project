@@ -31,120 +31,97 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 // Add an Image to a Review based on the Review's id
-router.post("/:reviewId/images", requireAuth, async (req, res) => {
-  const reviewId = req.params.reviewId;
-  const { url } = req.body;
-  const userId = parseInt(req.user.id);
+// router.post("/:reviewId/images", requireAuth, async (req, res) => {
+//   const reviewId = req.params.reviewId;
+//   const { url } = req.body;
+//   const userId = parseInt(req.user.id);
 
-  try {
-    const reviewImage = await Review.findByPk(reviewId);
+//   try {
+//     const reviewImage = await Review.findByPk(reviewId);
 
-    if (!reviewImage) {
-      return res.status(404).json({
-        message: "Review couldn't be found",
-      });
-    }
-    if (reviewImage.userId !== userId) {
-      return res.status(403).json({
-        message: "Forbidden",
-      });
-    }
+//     if (!reviewImage) {
+//       return res.status(404).json({
+//         message: "Review couldn't be found",
+//       });
+//     }
+//     if (reviewImage.userId !== userId) {
+//       return res.status(403).json({
+//         message: "Forbidden",
+//       });
+//     }
 
-    const totalImages = await ReviewImage.count({
-      where: { reviewId },
-    });
+//     const totalImages = await ReviewImage.count({
+//       where: { reviewId },
+//     });
 
-    if (totalImages >= 10) {
-      return res.status(403).json({
-        message: "Maximum number of images for this resource was reached",
-      });
-    }
+//     if (totalImages >= 10) {
+//       return res.status(403).json({
+//         message: "Maximum number of images for this resource was reached",
+//       });
+//     }
 
-    const newReviewImage = await ReviewImage.create({
-      url,
-      reviewId,
-    });
+//     const newReviewImage = await ReviewImage.create({
+//       url,
+//       reviewId,
+//     });
 
-    res.status(201).json(newReviewImage);
+//     res.status(201).json(newReviewImage);
 
-    //{ id: image.id, url: image.url });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred", error: error.message });
-  }
-});
+//     //{ id: image.id, url: image.url });
+//   } catch (error) {
+//     console.error(error);
+//     res
+//       .status(500)
+//       .json({ message: "An error occurred", error: error.message });
+//   }
+// });
 
-// Route handler to get all reviews for a given user
-router.get("/", async (req, res) => {
-  const { userId } = req.params;
+// Route handler to get all comments for a given user
+// router.get("/", async (req, res) => {
+//   const { user } = req;
 
-  try {
-    // Make sure the current user is authorized to view their reviews
-    // if (req.user.id !== parseInt(userId, 10)) {
-    //   return res.status(403).json({ message: "Unauthorized" });
-    // }
+//   try {
 
-    // Fetch reviews with related Spot and ReviewImages
-    const reviews = await Review.findAll({
-      where: { userId: userId },
-      include: [
-        {
-          model: User,
-          attributes: ["id", "firstName", "lastName"],
-        },
-        {
-          model: Spot,
-          attributes: [
-            "id",
-            "ownerId",
-            "address",
-            "city",
-            "state",
-            "country",
-            "lat",
-            "lng",
-            "name",
-            "price",
-            "preview",
-          ],
-        },
-        {
-          model: ReviewImage,
-          attributes: ["id", "url"],
-        },
-      ],
-    });
+//     const comments = await Comment.findAll({
+//       where: { userId: user.id },
+//       include: [
+//         {
+//           model: User,
+//           attributes: ["id", "firstName", "lastName"],
+//         },
+//         {
+//           model: Gift,
+//           attributes: { exclude: ["createdAt", "updatedAt"] },
+//         },
+//       ],
+//     });
 
-    if (!reviews || reviews.length === 0) {
-      return res.status(404).json({
-        message: "No reviews found for this user",
-      });
-    }
-    // Return the reviews in the specified format
-    const reviewDetails = reviews.map((review) => ({
-      id: review.id,
-      userId: review.userId,
-      spotId: review.spotId,
-      review: review.review,
-      stars: review.stars,
-      createdAt: review.createdAt,
-      updatedAt: review.updatedAt,
-      User: review.User,
-      Spot: review.Spot,
-      ReviewImages: review.Spot.ReviewImages,
-    }));
+//     if (!comments || comments.length === 0) {
+//       return res.status(404).json({
+//         message: "No comments found for this user",
+//       });
+//     }
+//     // Return the reviews in the specified format
+//     const commentDetails = comments.map((comment) => ({
+//       id: comment.id,
+//       userId: comment.userId,
+//       giftId: comment.giftId,
+//       comment: comment.comment,
+//       createdAt: comment.createdAt,
+//       updatedAt: comment.updatedAt,
+//       User: comment.User,
+//       Gift: comment.Gift,
+//     }));
 
-    return res.status(200).json({ Reviews: reviewDetails });
-    //res.status(200).json(reviews);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred while fetching reviews" });
-  }
-});
+//     return res.status(200).json({ Comments: commentDetails });
+//     //res.status(200).json(reviews);
+//   } catch (error) {
+//     console.error(error);
+//     res
+//       .status(500)
+//       .json({ message: "An error occurred while fetching comments" });
+//   }
+// });
 
 const validateComment = [
   check("comment").notEmpty().withMessage("Comment text is required"),
@@ -183,7 +160,7 @@ router.put(
         return next(err);
       }
 
-      // Ensure the review belongs to the current user
+      // Ensure the comment belongs to the current user
       if (commentVar.userId !== req.user.id) {
         const err = new Error("Forbidden");
         err.status = 403;
@@ -211,7 +188,7 @@ router.put(
         return next(err);
       }
 
-      // reviewVar.review = review;
+      // reviewVar.comment = comment;
 
       await commentVar.update({
         comment,

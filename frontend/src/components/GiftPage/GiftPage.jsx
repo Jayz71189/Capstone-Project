@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkLoadLikes } from "../../redux/likes";
+import { thunkLoadLikes } from "../../store/likes";
 import LikeModal from "../LikeModal/LikeModal";
 import CommentsModal from "../CommentsModal/CommentsModal";
 import GiftModal from "../GiftModal/GiftModal";
 import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import "./PostPage.css";
+import "./GiftPage.css";
 
 function GiftPage() {
   const [gift, setGift] = useState([]);
