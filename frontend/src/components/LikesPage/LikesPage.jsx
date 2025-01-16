@@ -16,7 +16,7 @@ function LikesPage() {
   const [errors, setErrors] = useState();
   const [fillHeart, setFillHeart] = useState("");
   const { setModalContent, closeModal } = useModal();
-  const [followStatus, setFollowStatus] = useState({});
+  const [purchaseStatus, setPurchaseStatus] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //   const sessionUser = useSelector((state) => state.session.user);
@@ -69,53 +69,51 @@ function LikesPage() {
   //     dispatch(thunkLoadLikes());
   //   };
 
-  const checkFollowStatus = async (username) => {
+  const checkPurchaseStatus = async (giftId) => {
     try {
-      const response = await fetch(`/api/follows/${username}`);
+      const response = await fetch(`/api/purchases/${giftId}`);
       const data = await response.json();
       return data;
     } catch (error) {
       console.error("Error fetching follow status:", error);
-      return { is_following: false, note: "" };
+      return { is_purchased: false, note: "" };
     }
   };
 
   useEffect(() => {
-    const loadFollowStatus = async () => {
+    const loadPurchaseStatus = async () => {
       const status = {};
       for (const like of likes) {
-        const { is_following, note } = await checkFollowStatus(
-          like.poster_username
-        );
-        status[like.poster_username] = { is_following, note };
+        const { is_purchased, note } = await checkPurchaseStatus(like.giftId);
+        status[like.giftId] = { is_purchased, note };
       }
-      setFollowStatus(status);
+      setPurchaseStatus(status);
     };
-    if (likes.length > 0) loadFollowStatus();
+    if (likes.length > 0) loadPurchaseStatus();
   }, [likes]);
 
-  const fill_heart = (postId) => {
+  const fill_heart = (giftId) => {
     setFillHeart((prev) => ({
       ...prev,
-      [postId]: !prev[postId],
+      [giftId]: !prev[giftId],
     }));
   };
 
-  const heart = (postId) => (fillHeart[postId] ? <FaHeart /> : <FaRegHeart />);
+  const heart = (giftId) => (fillHeart[giftId] ? <FaHeart /> : <FaRegHeart />);
 
   const refreshPurchases = async () => {
-    const updatedFollowStatus = {};
+    const updatedPurchaseStatus = {};
     for (const like of likes) {
-      const { is_following, note } = await checkFollowStatus(
+      const { is_purchased, note } = await checkPurchaseStatus(
         like.poster_username
       );
-      updatedFollowStatus[like.poster_username] = { is_following, note };
+      updatedPurchaseStatus[like.poster_username] = { is_purchased, note };
     }
-    setFollowStatus(updatedFollowStatus);
+    setPurchaseStatus(updatedPurchaseStatus);
   };
 
-  const openFollowModal = (like) => {
-    const userFollowStatus = followStatus[like.poster_username] || {
+  const openPurchaseModal = (like) => {
+    const userFollowStatus = purchaseStatus[like.poster_username] || {
       is_following: false,
       note: "",
     };
@@ -136,7 +134,7 @@ function LikesPage() {
           <h1 id="h1">Likes</h1>
         </div>
         {likes.length === 0 ? (
-          <p id="no_posts">You have not liked any posts.</p>
+          <p id="no_posts">You have not liked any gifts.</p>
         ) : (
           [...likes].reverse().map((like) => {
             const openLikesModal = () => {
@@ -154,7 +152,7 @@ function LikesPage() {
 
             const openCommentModal = () => {
               setModalContent(
-                <CommentsModal postId={like.post_id} closeModal={closeModal} />
+                <CommentsModal giftId={like.giftId} closeModal={closeModal} />
               );
             };
 
@@ -162,7 +160,7 @@ function LikesPage() {
             //     setModalContent(<PostModal postId={like.post_id} existingTitle={like.title} existingDescription={like.description} closeModal={closeModal} refreshPosts={refreshPosts} />)
             //   }
 
-            const followButton = followStatus[like.poster_username]
+            const followButton = purchaseStatus[like.poster_username]
               ?.is_following
               ? "Following"
               : "Follow";
@@ -177,7 +175,7 @@ function LikesPage() {
                   >
                     {like.poster_username}
                   </a>
-                  <div id="follow_me" onClick={() => openFollowModal(like)}>
+                  <div id="follow_me" onClick={() => openPurchaseModal(like)}>
                     {followButton}
                   </div>
                 </div>

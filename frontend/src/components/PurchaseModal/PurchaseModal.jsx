@@ -8,7 +8,7 @@ import {
 } from "../../store/purchases";
 import "../PurchasePage/PurchasePage.css";
 
-function FollowModal({
+function PurchaseModal({
   userId,
   isPurchased = false,
   followId = null,
@@ -63,7 +63,7 @@ function FollowModal({
 
   return (
     <div id="follow-modal">
-      <h2>{isPurchased ? "Edit Follow" : "Follow User"}</h2>
+      <h2>{isPurchased ? "Edit Purchase" : "Purchase Again?"}</h2>
       {errors.error && <p className="error">{errors.error}</p>}
       <form onSubmit={handleSubmit}>
         <label style={{ fontFamily: "Sour Gummy" }}>
@@ -90,4 +90,4 @@ function FollowModal({
   );
 }
 
-export default FollowModal;
+export default PurchaseModal;
