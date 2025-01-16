@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
         <NavLink to="/profile">My Profile</NavLink>
       </li>
       <li>
-        <NavLink to="/purchase">My Purchases</NavLink>
+        <NavLink to="/purchases">My Purchases</NavLink>
       </li>
 
       {isLoaded && (

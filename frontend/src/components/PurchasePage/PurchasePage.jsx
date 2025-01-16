@@ -10,7 +10,7 @@ function PurchasePage() {
   useEffect(() => {
     fetch("/api/purchases/current")
       .then((res) => res.json())
-      .then((data) => setPurchases(data.purchases))
+      .then((data) => setPurchases(data.Purchases))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -22,7 +22,7 @@ function PurchasePage() {
   const refreshPurchases = () => {
     fetch("/api/purchases/current")
       .then((res) => res.json())
-      .then((data) => setPurchases(data.purchases))
+      .then((data) => setPurchases(data.Purchases))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -34,14 +34,17 @@ function PurchasePage() {
 
   return (
     <div>
-      <h1 style={{ marginLeft: "2.5px" }}>Follows</h1>
+      <h1 style={{ marginLeft: "2.5px" }}>Purchases</h1>
       <div className="purchases">
         {purchases.length === 0 ? (
-          <p>You are not following any users.</p>
+          <p>You do not have any purchases.</p>
         ) : (
           purchases.reverse().map((purchase) => {
             return (
               <div key={purchase.id} className="purchase_div">
+                <div className="purchase_div1">{purchase.giftId} </div>
+                <div className="purchase_div2">{purchase.quantity} </div>
+                <div className="purchase_div3">{purchase.totalPrice} </div>
                 <div>
                   <a href={`/${purchase.purchase_username}`} id="user_tag">
                     {purchase.purchase_username}

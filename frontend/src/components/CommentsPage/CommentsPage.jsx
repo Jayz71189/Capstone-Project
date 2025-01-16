@@ -11,9 +11,15 @@ function CommentsPage() {
   useEffect(() => {
     fetch("/api/comments/current")
       .then((res) => res.json())
-      .then((data) => setComments(data.comments))
+      .then((data) => {
+        setComments(data.Comments);
+        // console.log("data");
+        // console.log(data);
+        // console.log(data.Comments);
+      })
       .catch(async (res) => {
         const data = await res.json();
+
         if (data && data.errors) {
           setErrors(data.errors);
         }
@@ -23,7 +29,7 @@ function CommentsPage() {
   const refreshComments = () => {
     fetch("/api/comments/current")
       .then((res) => res.json())
-      .then((data) => setComments(data.comments))
+      .then((data) => setComments(data.Comments))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -36,14 +42,22 @@ function CommentsPage() {
   console.log("comments");
   console.log(comments);
 
+  //   comments.forEach(({ comment }) => {
+  comments.map(({ comment }) => {
+    console.log(`Name: ${comment}`);
+  });
+
+  console.log("comments");
+  console.log(comments);
+
   return (
     <div>
       <h1>Comments</h1>
-      <div className="purchases">
+      <div className="comments">
         {comments.length === 0 ? (
           <p>You have not made any comments.</p>
         ) : (
-          comments.map((comment) => {
+          comments.reverse().map((comment) => {
             return (
               <div key={comment.id} className="comment_div">
                 <div className="comment">{comment.comment}</div>

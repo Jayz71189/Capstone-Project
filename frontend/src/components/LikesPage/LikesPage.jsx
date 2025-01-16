@@ -24,7 +24,7 @@ function LikesPage() {
   useEffect(() => {
     fetch("/api/likes/current")
       .then((res) => res.json())
-      .then((data) => setLikes(data.likes))
+      .then((data) => setLikes(data.Likes))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -40,7 +40,7 @@ function LikesPage() {
   const refreshLikes = async () => {
     fetch("/api/likes/current")
       .then((res) => res.json())
-      .then((data) => setLikes(data.likes))
+      .then((data) => setLikes(data.Likes))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
