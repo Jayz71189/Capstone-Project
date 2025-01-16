@@ -9,7 +9,7 @@ import {
 import "./LikeModal.css";
 
 function LikeModal({
-  postId,
+  giftId,
   isLiked = false,
   likeId = null,
   existingNote = "",
@@ -22,7 +22,7 @@ function LikeModal({
 
   useEffect(() => {
     if (isLiked && likeId) {
-      fetch(`/api/likes/${likeId}`)
+      fetch(`/api/${giftId}/likes`)
         .then((res) => res.json())
         .then((data) => {
           setNote(data.note);
@@ -36,7 +36,7 @@ function LikeModal({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const errors = await dispatch(thunkAddLike(postId, note));
+    const errors = await dispatch(thunkAddLike(giftId, note));
     if (errors) {
       setErrors(errors);
     } else {

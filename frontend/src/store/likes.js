@@ -1,3 +1,5 @@
+import { csrfFetch } from "../store/csrf";
+
 const LOAD_LIKES = "likes/LOAD_LIKES";
 const ADD_LIKE = "likes/ADD_LIKE";
 const UPDATE_LIKE = "likes/UPDATE_LIKE";
@@ -37,7 +39,7 @@ export const thunkLoadLikes = () => async (dispatch) => {
 export const thunkAddLike =
   (postId, note = "") =>
   async (dispatch) => {
-    const response = await fetch(`/api/posts/${postId}/likes`, {
+    const response = await csrfFetch(`/api/posts/${postId}/likes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ note }),
@@ -53,8 +55,8 @@ export const thunkAddLike =
     }
   };
 
-export const thunkUpdateLike = (likeId, note) => async (dispatch) => {
-  const response = await fetch(`/api/likes/${likeId}`, {
+export const thunkUpdateLike = (likeId, giftId, note) => async (dispatch) => {
+  const response = await csrfFetch(`/api/gifts/${giftId}/likes/${likeId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ note }),
@@ -70,8 +72,8 @@ export const thunkUpdateLike = (likeId, note) => async (dispatch) => {
   }
 };
 
-export const thunkDeleteLike = (likeId) => async (dispatch) => {
-  const response = await fetch(`/api/likes/${likeId}`, {
+export const thunkDeleteLike = (likeId, giftId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/gifts/${giftId}/likes/${likeId}`, {
     method: "DELETE",
   });
 

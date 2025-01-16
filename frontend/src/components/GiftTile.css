@@ -1,4 +1,4 @@
-.spot-tile {
+.gift-tile {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -6,17 +6,17 @@
   transition: transform 0.2s;
 }
 
-.spot-tile:hover {
+.gift-tile:hover {
   transform: scale(1.05);
 }
 
-.spot-thumbnail {
+.gift-thumbnail {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
 
-.spot-info {
+.gift-info {
   padding: 10px;
 }
 

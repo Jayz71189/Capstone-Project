@@ -21,13 +21,16 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  display: flex;
+  display: grid;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 1rem 0;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-template-rows: repeat(3, 200px); /* 3 rows, each 200px tall */
+  grid-gap: 1rem; /* Space between rows and columns */
 }
 
 .gift-tile img {

@@ -6,7 +6,7 @@ import "./CreateGiftModal.css";
 
 function CreateGiftModal() {
   const [name, setName] = useState("");
-  const [image, setImage] = useState(null);
+  // const [previewImage, setPreviewImage] = useState(null);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -22,11 +22,14 @@ function CreateGiftModal() {
     formData.append("description", description);
     formData.append("quantity", quantity);
     formData.append("price", price);
-    if (image) formData.append("image", image);
+    // formData.append("previewImage", previewImage);
 
     setLoading(true);
 
     const response = await dispatch(thunkCreateGift(formData));
+
+    console.log("formData");
+    console.log(formData);
 
     setLoading(false);
 
@@ -51,19 +54,19 @@ function CreateGiftModal() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+            placeholder="Name"
             maxLength="50"
-            placeholder="Optional"
           />
         </label>
-        <label style={{ fontFamily: "Sour Gummy" }}>
-          Image:
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
+        {/* <label style={{ fontFamily: "Sour Gummy" }}>
+          previewImage:
+          <textarea
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
             required
           />
-        </label>
+        </label> */}
         <label style={{ fontFamily: "Sour Gummy" }}>
           Description:
           <textarea

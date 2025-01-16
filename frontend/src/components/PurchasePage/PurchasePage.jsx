@@ -58,7 +58,7 @@ function PurchasePage() {
                         purchaseId={purchase.id}
                         userId={purchase.purchase_id}
                         ispurchased={true}
-                        refreshFollows={refreshPurchases}
+                        refreshPurchases={refreshPurchases}
                         existingNote={purchase.note}
                       />
                     }

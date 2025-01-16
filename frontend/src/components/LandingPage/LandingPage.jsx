@@ -54,20 +54,20 @@ function LandingPage() {
     dispatch(thunkCreateGift());
   }, [dispatch]);
 
-  //   const refreshGifts = async () => {
-  //     fetch("/api/gifts")
-  //       .then((res) => res.json())
-  //       .then((data) => setGifts(data.Gifts))
-  //       .catch(async (res) => {
-  //         const data = await res.json();
-  //         if (data && data.errors) {
-  //           setErrors(data.errors);
-  //           console.log(errors);
-  //         }
-  //       });
-  // dispatch(thunkLoadFollows());
-  // dispatch(thunkLoadLikes());
-  //   };
+  const refreshGifts = async () => {
+    fetch("/api/gifts")
+      .then((res) => res.json())
+      .then((data) => setGifts(data.Gifts))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+          console.log(errors);
+        }
+      });
+    // dispatch(thunkLoadFollows());
+    // dispatch(thunkLoadLikes());
+  };
 
   //   useEffect(() => {
   //     fetch("/api/posts/followed_posts")
@@ -125,7 +125,9 @@ function LandingPage() {
   return (
     <div className="landing-page">
       {Array.isArray(gifts) && gifts.length > 0 ? (
-        gifts.map((gift) => <GiftTile key={gift.id} gift={gift} />)
+        gifts.map((gift) => (
+          <GiftTile key={gift.id} gift={gift} refreshGifts={refreshGifts} />
+        ))
       ) : (
         <div>No gifts available</div>
       )}
