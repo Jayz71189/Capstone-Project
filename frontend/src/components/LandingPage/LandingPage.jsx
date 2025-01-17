@@ -67,6 +67,7 @@ function LandingPage() {
       });
     // dispatch(thunkLoadFollows());
     // dispatch(thunkLoadLikes());
+    dispatch, closeModal;
   };
 
   //   useEffect(() => {
@@ -121,6 +122,8 @@ function LandingPage() {
 
   console.log("gift");
   console.log(gifts);
+  // console.log("giftList");
+  // console.log(giftList);
 
   return (
     <div className="landing-page">

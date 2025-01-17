@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateGift } from "../../store/gifts";
+
 import "./CreateGiftModal.css";
 
-function CreateGiftModal() {
+function CreateGiftModal({ refreshGifts }) {
   const [name, setName] = useState("");
   // const [previewImage, setPreviewImage] = useState(null);
   const [description, setDescription] = useState("");
@@ -26,8 +27,11 @@ function CreateGiftModal() {
 
     setLoading(true);
 
-    const response = await dispatch(thunkCreateGift(formData));
-
+    const response = await dispatch(thunkCreateGift(formData))
+      .then(() => {
+        refreshGifts();
+      })
+      .then(closeModal());
     console.log("formData");
     console.log(formData);
 
