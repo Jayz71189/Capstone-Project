@@ -1,3 +1,5 @@
+import { csrfFetch } from "../store/csrf";
+
 const LOAD_PURCHASES = "purchases/LOAD_PURCHASES";
 const ADD_PURCHASES = "purchases/ADD_PURCHASES";
 const UPDATE_PURCHASES = "purchases/UPDATE_PURCHASES";
@@ -35,12 +37,12 @@ export const thunkLoadPurchase = () => async (dispatch) => {
 };
 
 export const thunkAddPurchase =
-  (userId, note = "") =>
+  (giftId, note = "", quantity, totalPrice) =>
   async (dispatch) => {
-    const response = await fetch(`/api/purchases/${userId}`, {
+    const response = await csrfFetch(`/api/gifts/${giftId}/purchases`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ note }),
+      body: JSON.stringify({ note, quantity, totalPrice }),
     });
 
     if (response.ok) {

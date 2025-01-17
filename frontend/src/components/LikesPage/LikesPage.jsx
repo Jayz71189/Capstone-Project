@@ -71,11 +71,11 @@ function LikesPage() {
 
   const checkPurchaseStatus = async (giftId) => {
     try {
-      const response = await fetch(`/api/purchases/${giftId}`);
+      const response = await fetch(`/api/gifts/${giftId}/purchases`);
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error fetching follow status:", error);
+      console.error("Error fetching purchase status:", error);
       return { is_purchased: false, note: "" };
     }
   };
@@ -120,7 +120,7 @@ function LikesPage() {
     setModalContent(
       <PurchaseModal
         userId={like.poster_id}
-        isPurchased={userFollowStatus.is_following}
+        isPurchased={userFollowStatus.is_purchased}
         existingNote={userFollowStatus.note}
         refreshPurchases={refreshPurchases}
       />
@@ -160,13 +160,13 @@ function LikesPage() {
             //     setModalContent(<PostModal postId={like.post_id} existingTitle={like.title} existingDescription={like.description} closeModal={closeModal} refreshPosts={refreshPosts} />)
             //   }
 
-            const followButton = purchaseStatus[like.poster_username]
-              ?.is_following
+            const purchaseButton = purchaseStatus[like.poster_username]
+              ?.is_purchased
               ? "Following"
-              : "Follow";
+              : "Purchase";
 
             return (
-              <div key={like.post} className="post_container">
+              <div key={like.gift} className="post_container">
                 <div className="user_info">
                   <a
                     style={{ paddingRight: ".8%" }}
@@ -176,11 +176,11 @@ function LikesPage() {
                     {like.poster_username}
                   </a>
                   <div id="follow_me" onClick={() => openPurchaseModal(like)}>
-                    {followButton}
+                    {purchaseButton}
                   </div>
                 </div>
                 <img
-                  onClick={() => navigate(`/posts/${like.post_id}`)}
+                  onClick={() => navigate(`/gifts/${like.giftId}`)}
                   src={like.image}
                   alt={like.description}
                   className="likes_img"

@@ -28,7 +28,7 @@ function LikeModal({
           setNote(data.note);
         });
     }
-  }, [isLiked, likeId]);
+  }, [isLiked, likeId, giftId]);
 
   const handleInputChange = (event) => {
     setNote(event.target.value);

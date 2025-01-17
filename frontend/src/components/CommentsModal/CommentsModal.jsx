@@ -1,3 +1,5 @@
+import { csrfFetch } from "../../store/csrf";
+
 import { useEffect, useState } from "react";
 import "./CommentsModal.css";
 
@@ -9,7 +11,7 @@ function CommentsModal({ giftId }) {
   useEffect(() => {
     fetch(`/api/gifts/${giftId}/comments`)
       .then((res) => res.json())
-      .then((data) => setComments(data.comments))
+      .then((data) => setComments(data.Comments))
       .catch((error) => {
         console.error("Error fetching comments", error);
       });
@@ -25,7 +27,7 @@ function CommentsModal({ giftId }) {
 
     const payload = { comment: newComment };
 
-    fetch(`/api/gifts/${giftId}/comments`, {
+    csrfFetch(`/api/gifts/${giftId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

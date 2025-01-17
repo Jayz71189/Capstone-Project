@@ -37,9 +37,9 @@ export const thunkLoadLikes = () => async (dispatch) => {
 };
 
 export const thunkAddLike =
-  (postId, note = "") =>
+  (giftId, note = "") =>
   async (dispatch) => {
-    const response = await csrfFetch(`/api/posts/${postId}/likes`, {
+    const response = await csrfFetch(`/api/gifts/${giftId}/likes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ note }),

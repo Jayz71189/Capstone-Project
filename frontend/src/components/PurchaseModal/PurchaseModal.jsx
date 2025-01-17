@@ -11,7 +11,9 @@ import "../PurchasePage/PurchasePage.css";
 function PurchaseModal({
   userId,
   isPurchased = false,
-  followId = null,
+  giftId = 1,
+  quantity = 1,
+  totalPrice = 1,
   existingNote = "",
   refreshPurchases,
 }) {
@@ -21,14 +23,14 @@ function PurchaseModal({
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (isPurchased && followId) {
-      fetch(`/api/follows/${followId}`)
+    if (isPurchased && giftId) {
+      fetch(`/api/gifts/${giftId}/purchases`)
         .then((res) => res.json())
         .then((data) => {
           setNote(data.note);
         });
     }
-  }, [isPurchased, followId]);
+  }, [isPurchased, giftId]);
 
   const handleInputChange = (event) => {
     setNote(event.target.value);
@@ -36,7 +38,9 @@ function PurchaseModal({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const errors = await dispatch(thunkAddPurchase(userId, note));
+    const errors = await dispatch(
+      thunkAddPurchase(giftId, quantity, note, totalPrice)
+    );
     if (errors) {
       setErrors(errors);
     } else {
