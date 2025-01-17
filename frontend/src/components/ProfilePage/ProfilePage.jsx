@@ -130,7 +130,7 @@ function ProfilePage() {
                   </div>
                 </div>
                 <img
-                  src={gift.image}
+                  src={gift.GiftImages?.[0]?.url}
                   alt={gift.description}
                   className="gifts_img"
                   onClick={() => navigate(`/gifts/${gift.id}`)}

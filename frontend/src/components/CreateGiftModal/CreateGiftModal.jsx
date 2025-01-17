@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateGift } from "../../store/gifts";
+// import { refreshGifts } from "../LandingPage/LandingPage";
 
 import "./CreateGiftModal.css";
 

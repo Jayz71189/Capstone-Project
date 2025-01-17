@@ -1,12 +1,13 @@
 import { csrfFetch } from "../../store/csrf";
-
+import { useModal } from "../../context/Modal";
 import { useEffect, useState } from "react";
 import "./CommentsModal.css";
 
-function CommentsModal({ giftId }) {
+function CommentsModal({ giftId, refreshComments }) {
   const [comments, setComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const { closeModal } = useModal();
 
   useEffect(() => {
     fetch(`/api/gifts/${giftId}/comments`)
@@ -43,6 +44,10 @@ function CommentsModal({ giftId }) {
         setComments((prevComments) => [data, ...prevComments]);
         setNewComment("");
       })
+      .then(() => {
+        refreshComments();
+      })
+      .then(closeModal())
       .catch((error) => {
         console.error("Error creating comment:", error);
       });

@@ -140,7 +140,7 @@ function LikesPage() {
             const openLikesModal = () => {
               setModalContent(
                 <LikeModal
-                  postId={like.id}
+                  giftId={like.id}
                   isLiked={true}
                   likeId={like.id}
                   existingNote={like.note}
@@ -181,7 +181,7 @@ function LikesPage() {
                 </div>
                 <img
                   onClick={() => navigate(`/gifts/${like.giftId}`)}
-                  src={like.image}
+                  src={like.gift}
                   alt={like.description}
                   className="likes_img"
                 />

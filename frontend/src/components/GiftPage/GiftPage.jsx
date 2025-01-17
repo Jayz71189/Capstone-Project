@@ -133,7 +133,11 @@ function GiftPage() {
               </div>
             )}
           </div>
-          <img src={gift.image} alt={gift.description} className="post_img" />
+          <img
+            src={gift.GiftImages?.[0]?.url}
+            alt={gift.description}
+            className="post_img"
+          />
           <div className="added_info_container">
             <div className="gift_description">{gift.description}</div>
             <div className="likes_container">

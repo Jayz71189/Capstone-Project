@@ -123,6 +123,28 @@ router.get("/current", requireAuth, async (req, res) => {
 //   }
 // });
 
+router.get("/:commentId", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  const comments = await Comment.findAll({
+    where: {
+      userId: user.id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+      },
+      {
+        model: Gift,
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      },
+    ],
+  });
+
+  return res.status(200).json({ Comments: comments });
+});
+
 const validateComment = [
   check("comment").notEmpty().withMessage("Comment text is required"),
   handleValidationErrors,
