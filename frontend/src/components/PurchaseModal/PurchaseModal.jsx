@@ -11,9 +11,9 @@ import "../PurchasePage/PurchasePage.css";
 function PurchaseModal({
   userId,
   isPurchased = false,
-  giftId = 1,
-  quantity = 1,
-  totalPrice = 1,
+  giftId,
+  quantity,
+  totalPrice,
   existingNote = "",
   refreshPurchases,
 }) {
@@ -71,11 +71,11 @@ function PurchaseModal({
       {errors.error && <p className="error">{errors.error}</p>}
       <form onSubmit={handleSubmit}>
         <label style={{ fontFamily: "Sour Gummy" }}>
-          Add a Note:
+          Add a Quantity:
           <textarea
-            value={note}
+            value={quantity}
             onChange={handleInputChange}
-            placeholder="Write a note..."
+            placeholder="Enter a quantity..."
           />
         </label>
         {!isPurchased && <button type="submit">Purchase</button>}
@@ -85,7 +85,7 @@ function PurchaseModal({
               Edit
             </button>
             <button type="button" onClick={handleUnpurchase}>
-              Unfollow
+              UnPurchase
             </button>
           </>
         )}

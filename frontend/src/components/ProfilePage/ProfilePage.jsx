@@ -66,6 +66,9 @@ function ProfilePage() {
 
   const heart = (giftId) => (fillHeart[giftId] ? <FaHeart /> : <FaRegHeart />);
 
+  console.log("gifts");
+  console.log(gifts);
+
   return (
     <div className="gifts_section_4">
       <section className="gifts_section_3">

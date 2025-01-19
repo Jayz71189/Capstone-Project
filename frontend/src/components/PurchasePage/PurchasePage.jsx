@@ -56,7 +56,8 @@ function PurchasePage() {
                     modalComponent={
                       <PurchaseModal
                         purchaseId={purchase.id}
-                        userId={purchase.purchase_id}
+                        giftId={purchase.giftId}
+                        totalPrice={purchase.totalPrice}
                         ispurchased={true}
                         refreshPurchases={refreshPurchases}
                         existingNote={purchase.note}

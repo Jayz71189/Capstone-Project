@@ -42,7 +42,7 @@ export const thunkAddPurchase =
     const response = await csrfFetch(`/api/gifts/${giftId}/purchases`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ note, quantity, totalPrice }),
+      body: JSON.stringify({ giftId, note, quantity, totalPrice }),
     });
 
     if (response.ok) {

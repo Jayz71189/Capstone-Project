@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import {
   thunkAddLike,
-  thunkUpdateLike,
+  // thunkUpdateLike,
   thunkDeleteLike,
 } from "../../store/likes";
 import "./LikeModal.css";
@@ -30,13 +30,15 @@ function LikeModal({
     }
   }, [isLiked, likeId, giftId]);
 
-  const handleInputChange = (event) => {
-    setNote(event.target.value);
-  };
+  // const handleInputChange = (event) => {
+  //   setNote(event.target.value);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const errors = await dispatch(thunkAddLike(giftId, note));
+    const errors = await dispatch(
+      thunkAddLike(giftId, note, setAlreadyLikedMessage)
+    );
     if (errors) {
       setErrors(errors);
     } else {
@@ -44,15 +46,15 @@ function LikeModal({
     }
   };
 
-  const handleUpdate = async () => {
-    const errors = await dispatch(thunkUpdateLike(likeId, note));
-    if (errors) {
-      setErrors(errors);
-    } else {
-      closeModal();
-      refreshLikes();
-    }
-  };
+  // const handleUpdate = async () => {
+  //   const errors = await dispatch(thunkUpdateLike(likeId, note));
+  //   if (errors) {
+  //     setErrors(errors);
+  //   } else {
+  //     closeModal();
+  //     refreshLikes();
+  //   }
+  // };
 
   const handleUnlike = async () => {
     await dispatch(thunkDeleteLike(likeId));
@@ -60,21 +62,25 @@ function LikeModal({
     refreshLikes();
   };
 
+  const setAlreadyLikedMessage = (message) => {
+    alert(message); // Or set it to a state variable for display
+  };
+
   return (
     <div id="like-modal">
       <h2 style={{ marginBottom: "-.2%" }}>
-        {isLiked ? "Edit Like" : "Like Post"}
+        {isLiked ? "Edit Like" : "Like Gift"}
       </h2>
       {errors.error && <p className="error">{errors.error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
+        {/* <label>
           Note:
           <textarea
             value={note}
             onChange={handleInputChange}
             placeholder="Add a note..."
           />
-        </label>
+        </label> */}
         <div id="button_box">
           {!isLiked && (
             <button className="like_buttons" type="submit">
@@ -83,13 +89,13 @@ function LikeModal({
           )}
           {isLiked && (
             <div>
-              <button
+              {/* <button
                 className="like_buttons"
                 type="button"
                 onClick={handleUpdate}
               >
                 Edit
-              </button>
+              </button> */}
               <button
                 className="like_buttons"
                 type="button"

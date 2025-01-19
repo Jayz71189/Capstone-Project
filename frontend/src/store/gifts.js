@@ -35,6 +35,7 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 
     if (!response.ok) {
       const errors = await response.json();
+
       return errors;
     }
 
