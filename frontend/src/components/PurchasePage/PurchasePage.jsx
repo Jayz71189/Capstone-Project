@@ -42,9 +42,18 @@ function PurchasePage() {
           purchases.reverse().map((purchase) => {
             return (
               <div key={purchase.id} className="purchase_div">
-                <div className="purchase_div1">{purchase.giftId} </div>
-                <div className="purchase_div2">{purchase.quantity} </div>
-                <div className="purchase_div3">{purchase.totalPrice} </div>
+                <div className="purchase_div1">
+                  {" "}
+                  gift Id = {purchase.giftId}{" "}
+                </div>
+                <div className="purchase_div2">
+                  {" "}
+                  quantity purchased ={purchase.quantity}{" "}
+                </div>
+                <div className="purchase_div3">
+                  {" "}
+                  Total Price = {purchase.totalPrice}{" "}
+                </div>
                 <div>
                   <a href={`/${purchase.purchase_username}`} id="user_tag">
                     {purchase.purchase_username}

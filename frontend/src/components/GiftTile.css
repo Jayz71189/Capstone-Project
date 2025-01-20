@@ -23,3 +23,18 @@
 .star-icon {
   color: gold;
 }
+
+.thumbnail-image {
+  width: 150px; /* Set a fixed width */
+  height: 150px; /* Set a fixed height */
+  object-fit: cover; /* Ensures the image fits within the specified dimensions without distortion */
+  border-radius: 8px; /* Adds rounded corners */
+  border: 2px solid #ccc; /* Adds a subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+  transition: transform 0.3s ease; /* Smooth transform animation */
+}
+
+.thumbnail-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  border-color: #007bff; /* Changes the border color on hover */
+}

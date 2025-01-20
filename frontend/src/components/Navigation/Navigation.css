@@ -25,3 +25,22 @@ li {
   text-align: right;
   display: flex;
 }
+
+.nav-bar {
+  display: flex;
+}
+.session-user {
+  padding: 3%;
+  margin-right: 5%;
+  text-align: right;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: right;
+  position: absolute; /* Positions the element relative to its nearest positioned ancestor */
+  right: 1%; /* Aligns it to the right side of the screen */
+  top: 1%; /* Adjusts its position vertically (optional) */
+}

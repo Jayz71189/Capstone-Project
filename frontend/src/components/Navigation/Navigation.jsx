@@ -12,30 +12,34 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul>
-      {sessionUser && (
-        <OpenModalButton
-          modalComponent={<CreateGiftModal />}
-          buttonText="Create New Gift"
-        />
-      )}
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/likes">My Likes</NavLink>
-      </li>
-      <li>
-        <NavLink to="/comments">My Comments</NavLink>
-      </li>
-      <li>
-        <NavLink to="/profile">My Profile</NavLink>
-      </li>
-      <li>
-        <NavLink to="/purchases">My Purchases</NavLink>
-      </li>
+      <div className="session-user">
+        {sessionUser && (
+          <OpenModalButton
+            modalComponent={<CreateGiftModal />}
+            buttonText="Create New Gift"
+          />
+        )}
+      </div>
+      <div className="nav-bar">
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/likes">My Likes</NavLink>
+        </li>
+        <li>
+          <NavLink to="/comments">My Comments</NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile">My Profile</NavLink>
+        </li>
+        <li>
+          <NavLink to="/purchases">My Purchases</NavLink>
+        </li>
+      </div>
 
       {isLoaded && (
-        <li>
+        <li className="profile-list">
           <ProfileButton user={sessionUser} />
         </li>
       )}
