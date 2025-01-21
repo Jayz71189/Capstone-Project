@@ -485,7 +485,6 @@ router.post("/", requireAuth, async (req, res) => {
 
   // Create a new Gift instance
   const newGift = await Gift.create({
-    id,
     name,
     description,
     price,
