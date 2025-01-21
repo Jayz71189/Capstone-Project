@@ -14,7 +14,6 @@ module.exports = {
       await Gift.bulkCreate(
         [
           {
-            id: 1,
             userId: 1,
             name: "Wine Glass",
             description: "The best Wine Glass for your every occasion ",
@@ -25,7 +24,6 @@ module.exports = {
             previewImage: "image url",
           },
           {
-            id: 2,
             userId: 1,
             name: "Cooking Pans Set",
             description:
@@ -37,7 +35,6 @@ module.exports = {
             previewImage: "image url",
           },
           {
-            id: 3,
             userId: 1,
             name: "Gift Card",
             description: "Gift card to use for any amazing gift",
@@ -48,7 +45,6 @@ module.exports = {
             previewImage: "image url",
           },
           {
-            id: 4,
             userId: 1,
             name: "Plate Set",
             description: "Food has never taste better when on these plates",
