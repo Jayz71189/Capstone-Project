@@ -18,7 +18,7 @@ const GiftTile = ({ gift }) => {
     navigate(`/gifts/${id}`); // Navigate to the spot's detail page
   };
 
-  const thumbnailUrl = GiftImages?.[0]?.url || "placeholder-image-url.jpg";
+  const thumbnailUrl = GiftImages?.at(-1)?.url || "placeholder-image-url.jpg";
 
   console.log(GiftImages);
 
