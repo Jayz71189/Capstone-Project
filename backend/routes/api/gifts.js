@@ -496,7 +496,7 @@ router.post("/", requireAuth, async (req, res) => {
     // newSpot);
 
     {
-      id: newGift.id,
+      // id: newGift.id,
       userId: newGift.userId,
       name: newGift.name,
       description: newGift.description,
