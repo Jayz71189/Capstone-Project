@@ -1,10 +1,50 @@
 ul {
   text-align: right;
   list-style-type: none;
+  flex: auto;
+  flex-direction: column;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
 
   /* Optional: If you want the entire <ul> to be aligned to the right */
 }
 
+li {
+  text-align: center;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+}
+
 .hidden {
   display: none;
+}
+
+.button {
+  text-align: right;
+  display: flex;
+}
+
+.nav-bar {
+  padding: 5%;
+  display: flex;
+}
+.session-user {
+  padding: 3%;
+  margin-right: 5%;
+  text-align: right;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: right;
+  position: absolute; /* Positions the element relative to its nearest positioned ancestor */
+  right: 1%; /* Aligns it to the right side of the screen */
+  top: 1%; /* Adjusts its position vertically (optional) */
 }

@@ -15,7 +15,7 @@ module.exports = {
         {
           id: 1,
           giftId: 1,
-          url: "https://a0.muscache.com/im/pictures/miso/Hosting-21409981/original/a8fa243d-dac8-4238-93e5-f7aa33072ff8.jpeg?im_w=1200&im_format=avif",
+          url: "https://modernquests.com/cdn/shop/files/leonardo-germany-poesia-red-wine-glasses-600ml-set-of-6-3.jpg?v=1690061463&width=1000",
           preview: true, // Marked as preview image
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -23,7 +23,7 @@ module.exports = {
         {
           id: 2,
           giftId: 2,
-          url: "https://a0.muscache.com/im/pictures/13507508/edc9eb7f_original.jpg?im_w=1200&im_format=avif",
+          url: "https://assets.wfcdn.com/im/48132452/resize-h800-w800%5Ecompr-r85/2507/250729796/Cook+N+Home+Pots+and+Pans+Nonstick+Kitchen+Cookware+Set.jpg",
           preview: true, // Not marked as preview
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -31,7 +31,15 @@ module.exports = {
         {
           id: 3,
           giftId: 3,
-          url: "https://a0.muscache.com/im/pictures/miso/Hosting-313113/original/db974e45-6bfb-437d-ab51-8ecaba1f4ee0.jpeg?im_w=1200&im_format=avif",
+          url: "https://images.zola.com/75533730-a111-4f86-af4c-6a3ea6efd9c9?w=320",
+          preview: true, // Marked as preview image
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 4,
+          giftId: 4,
+          url: "https://www.ikea.com/us/en/images/products/faergklar-plate-matte-light-gray__1027982_pe835159_s5.jpg?f=xl",
           preview: true, // Marked as preview image
           createdAt: new Date(),
           updatedAt: new Date(),

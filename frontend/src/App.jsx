@@ -5,6 +5,11 @@ import { useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import * as sessionActions from "./store/session";
+import LikesPage from "./components/LikesPage/LikesPage";
+import CommentsPage from "./components/CommentsPage/CommentsPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
+import PurchasePage from "./components/PurchasePage/PurchasePage";
+import GiftPage from "./components/GiftPage/GiftPage";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -31,6 +36,26 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
+      },
+      {
+        path: "/likes",
+        element: <LikesPage />,
+      },
+      {
+        path: "/comments",
+        element: <CommentsPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/purchases",
+        element: <PurchasePage />,
+      },
+      {
+        path: "/gifts/:giftId",
+        element: <GiftPage />,
       },
     ],
   },

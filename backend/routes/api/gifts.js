@@ -121,6 +121,15 @@ router.get("/current", requireAuth, async (req, res) => {
 
   const gifts = await Gift.findAll({
     where: { userId: user.id },
+    include: [
+      {
+        model: GiftImage,
+        // Alias defined in association
+        as: "GiftImages",
+        attributes: ["id", "url", "preview"],
+      },
+      // Alias defined in association
+    ],
   });
 
   return res.status(200).json({ Gifts: gifts });

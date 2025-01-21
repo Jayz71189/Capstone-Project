@@ -1,1 +1,9 @@
 /* TODO: Add sitewide styles */
+
+ul {
+  background-color: #48749b;
+}
+
+body {
+  background-color: white;
+}

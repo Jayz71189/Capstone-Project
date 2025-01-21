@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+// import { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 // import { PiDotsThreeOutlineFill } from "react-icons/pi";
 // import { thunkLoadLikes } from "../../redux/likes";
@@ -14,7 +15,11 @@ import GiftTile from "../GiftTile";
 // import LoginFormModal from "../LoginFormModal/LoginFormModal";
 // import GiftModal from "../GiftModal/GiftModal";
 import { useModal } from "../../context/Modal";
+import { thunkCreateGift } from "../../store/gifts";
 import "./LandingPage.css";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import CreateGiftsModal from "../CreateGiftModal/CreateGiftModal";
+
 function LandingPage() {
   const [gifts, setGifts] = useState([]);
   //   const [sessionGifts, setSessionGifts] = useState([]);
@@ -27,6 +32,7 @@ function LandingPage() {
   const { closeModal } = useModal();
   //   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const giftList = useSelector((state) => Object.values(state.gifts));
   //   const sessionUser = useSelector((state) => state.session.user);
   //   const likes = useSelector((state) => state.likes);
   //   const follows = useSelector((state) => state.follows);
@@ -42,24 +48,29 @@ function LandingPage() {
           console.log(errors);
         }
       });
-    // dispatch(thunkLoadFollows());
-    // dispatch(thunkLoadLikes());
+    //   // dispatch(thunkLoadFollows());
+    //   // dispatch(thunkLoadLikes());
   }, [errors, dispatch, closeModal]);
 
-  //   const refreshGifts = async () => {
-  //     fetch("/api/gifts")
-  //       .then((res) => res.json())
-  //       .then((data) => setGifts(data.Gifts))
-  //       .catch(async (res) => {
-  //         const data = await res.json();
-  //         if (data && data.errors) {
-  //           setErrors(data.errors);
-  //           console.log(errors);
-  //         }
-  //       });
-  // dispatch(thunkLoadFollows());
-  // dispatch(thunkLoadLikes());
-  //   };
+  useEffect(() => {
+    dispatch(thunkCreateGift());
+  }, [dispatch]);
+
+  const refreshGifts = async () => {
+    fetch("/api/gifts")
+      .then((res) => res.json())
+      .then((data) => setGifts(data.Gifts))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+          console.log(errors);
+        }
+      });
+    // dispatch(thunkLoadFollows());
+    // dispatch(thunkLoadLikes());
+    dispatch, closeModal;
+  };
 
   //   useEffect(() => {
   //     fetch("/api/posts/followed_posts")
@@ -111,14 +122,45 @@ function LandingPage() {
 
   //   const display = sessionUser ? (view === "all" ? gifts : sessionGifts) : gifts;
 
+  console.log("gift");
+  console.log(gifts);
+  console.log("giftList");
+  console.log(giftList);
+  // console.log("giftList");
+  // console.log(giftList);
+
   return (
     <div className="landing-page">
       {Array.isArray(gifts) && gifts.length > 0 ? (
-        gifts.map((gift) => <GiftTile key={gift.id} gift={gift} />)
+        gifts.map((gift) => (
+          <GiftTile key={gift.id} gift={gift} refreshGifts={refreshGifts} />
+        ))
       ) : (
         <div>No gifts available</div>
       )}
+      <div className="modal">
+        <OpenModalMenuItem
+          itemText="Create Gift"
+          modalComponent={
+            <CreateGiftsModal
+              giftId={giftList.id}
+              refreshGifts={refreshGifts}
+            />
+          }
+        />
+      </div>
     </div>
+
+    //     <>
+    //       <h1>Gifts</h1>
+    //       {gifts?.map(({ id, gift }) => (
+    //         <p key={id}>{gift}</p>
+    //       ))}
+    //       <h1>Gift Lists</h1>
+    //       {giftList?.map(({ id, gift }) => (
+    //         <p key={id}>{gift}</p>
+    //       ))}
+    //     </>
   );
 }
 

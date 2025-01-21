@@ -1,0 +1,69 @@
+/* Styles for the landing page */
+.landing-page {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background-color: #f5f5f5; /* Light background for visual contrast */
+  display: flex;
+  margin-top: 12rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for individual gift tiles */
+.gift-tile {
+  width: 50%;
+  margin-top: 200px;
+
+  object-fit: cover;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: repeat(3, 200px); 
+  grid-gap: 1rem; Space between rows and columns */
+}
+
+.gift-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.gift-tile h3 {
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+  color: #333;
+}
+
+.gift-tile p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.5rem 0 0;
+}
+
+.modal {
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif, bold;
+  font-size: large;
+}
+
+.modal:hover {
+  transform: scale(1.5); /* Slight zoom effect on hover */
+  border-color: #007bff; /* Changes the border color on hover */
+}

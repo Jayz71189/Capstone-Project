@@ -29,11 +29,11 @@ const GiftTile = ({ gift }) => {
       onClick={handleTileClick}
       style={{ cursor: "pointer" }}
     >
-      <img src={thumbnailUrl} alt={name} />
+      <img src={thumbnailUrl} alt={name} className="thumbnail-image" />
       <div className="gift-info">
         <h3>{name}</h3>
         <p>{`${description}`}</p>
-        <p>{`${quantity}`}</p>
+        <p>{`Quantity Requested: ${quantity}`}</p>
         <p>{`$${price} / item`}</p>
 
         <p>
