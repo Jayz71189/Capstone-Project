@@ -36,14 +36,6 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        {
-          id: 4,
-          giftId: 4,
-          url: "https://www.ikea.com/us/en/images/products/faergklar-plate-matte-light-gray__1027982_pe835159_s5.jpg?f=xl",
-          preview: true, // Marked as preview image
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
       ]);
     } catch (err) {
       console.error(err);

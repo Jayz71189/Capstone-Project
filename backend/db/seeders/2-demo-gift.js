@@ -47,17 +47,6 @@ module.exports = {
             // updatedAt: "2021-11-19 20:39:36",
             previewImage: "image url",
           },
-          {
-            id: 4,
-            userId: 1,
-            name: "Plate Set",
-            description: "Food has never taste better when on these plates",
-            price: 123,
-            quantity: 3,
-            // createdAt: "2021-11-19 20:39:36",
-            // updatedAt: "2021-11-19 20:39:36",
-            previewImage: "image url",
-          },
         ],
         { validate: true }
       );
