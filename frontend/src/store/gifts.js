@@ -63,7 +63,7 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 };
 
 export const thunkUpdateGift =
-  (giftId, name, description, price, quantity, previewImage) =>
+  (giftId, name, description, quantity, price, previewImage) =>
   async (dispatch) => {
     try {
       const response = await csrfFetch(`/api/gifts/${giftId}`, {
@@ -72,8 +72,8 @@ export const thunkUpdateGift =
         body: JSON.stringify({
           name,
           description,
-          price,
           quantity,
+          price,
           previewImage,
         }),
       });
