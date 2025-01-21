@@ -14,21 +14,18 @@ module.exports = {
       await Purchase.bulkCreate(
         [
           {
-            id: 1,
             userId: 1,
             giftId: 1,
             totalPrice: 123.0,
             quantity: 1,
           },
           {
-            id: 2,
             userId: 1,
             giftId: 2,
             totalPrice: 246.0,
             quantity: 2,
           },
           {
-            id: 3,
             userId: 1,
             giftId: 3,
             totalPrice: 469.0,
