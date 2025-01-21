@@ -48,3 +48,30 @@ li {
   right: 1%; /* Aligns it to the right side of the screen */
   top: 1%; /* Adjusts its position vertically (optional) */
 }
+.auth-links {
+  text-align: right;
+  list-style-type: none;
+  flex: auto;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
+  color: blue;
+  display: flex;
+  background: linear-gradient(
+    90deg,
+    #e3f2fd,
+    #bbdefb
+  ); /* Soft gradient background */
+  border: 2px solid #90caf9; /* Light blue border for emphasis */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: all 0.3s ease-in-out; /* Smooth transition effects */
+}
+
+.auth-links li:hover {
+  color: #ffffff; /* Change text color on hover */
+  background-color: #1976d2; /* Add a bold background color on hover */
+  border-radius: 5px; /* Add slight rounding to hovered items */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
