@@ -65,34 +65,43 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 export const thunkUpdateGift =
   (giftId, name, description, price, quantity, previewImage) =>
   async (dispatch) => {
-    const response = await csrfFetch(`/api/gifts/${giftId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        description,
-        price,
-        quantity,
-        previewImage,
-      }),
-    });
+    try {
+      const response = await csrfFetch(`/api/gifts/${giftId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          description,
+          price,
+          quantity,
+          previewImage,
+        }),
+      });
+      if (!response.ok) {
+        const errors = await response.json();
+        return errors;
+      }
 
-    const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: previewImage, preview: true }),
-    });
-
-    if (response.ok) {
       const updatedGift = await response.json();
-      const updatedGiftImage = await giftImageResponse.json();
       dispatch(updateGift(updatedGift));
+
+      const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: previewImage, preview: true }),
+      });
+
+      if (!giftImageResponse.ok) {
+        const errors = await giftImageResponse.json();
+        return errors;
+      }
+      const updatedGiftImage = await giftImageResponse.json();
       dispatch(updateGift(updatedGiftImage));
       return { gift: updatedGift, image: updatedGiftImage };
       // return null;
-    } else {
-      const errors = await response.json();
-      return errors;
+    } catch (error) {
+      console.error("Error updating gift or gift image:", error);
+      return { errors: ["An unexpected error occurred."] };
     }
   };
 

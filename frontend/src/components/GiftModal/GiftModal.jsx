@@ -22,14 +22,15 @@ function GiftModal({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = await dispatch(
+    const response = await dispatch(
       thunkUpdateGift(giftId, name, description, quantity, price, previewImage)
     );
-    if (errors) {
-      alert("Error updating gift");
-    } else {
+    if (!response.errors) {
+      // alert("Error updating gift");
       closeModal();
       refreshGifts();
+    } else {
+      alert("Error updating gift");
     }
   };
 
