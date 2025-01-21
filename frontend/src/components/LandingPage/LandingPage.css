@@ -53,3 +53,17 @@
   color: #666;
   margin: 0.5rem 0 0;
 }
+
+.modal {
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif, bold;
+  font-size: large;
+}
+
+.modal:hover {
+  transform: scale(1.5); /* Slight zoom effect on hover */
+  border-color: #007bff; /* Changes the border color on hover */
+}

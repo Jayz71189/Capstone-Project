@@ -8,7 +8,7 @@ import "./CreateGiftModal.css";
 
 function CreateGiftModal({ refreshGifts }) {
   const [name, setName] = useState("");
-  // const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -24,7 +24,7 @@ function CreateGiftModal({ refreshGifts }) {
     formData.append("description", description);
     formData.append("quantity", quantity);
     formData.append("price", price);
-    // formData.append("previewImage", previewImage);
+    formData.append("previewImage", previewImage);
 
     setLoading(true);
 
@@ -64,14 +64,14 @@ function CreateGiftModal({ refreshGifts }) {
             maxLength="50"
           />
         </label>
-        {/* <label style={{ fontFamily: "Sour Gummy" }}>
+        <label style={{ fontFamily: "Sour Gummy" }}>
           previewImage:
           <textarea
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
             required
           />
-        </label> */}
+        </label>
         <label style={{ fontFamily: "Sour Gummy" }}>
           Description:
           <textarea

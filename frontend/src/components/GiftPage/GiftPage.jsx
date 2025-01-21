@@ -99,6 +99,7 @@ function GiftPage() {
         existingDescription={gift.description}
         exisitngQuanity={gift.quantity}
         existingPrice={gift.price}
+        existingPreviewImage={gift.previewImage}
         closeModal={closeModal}
         refreshGifts={refreshGifts}
       />

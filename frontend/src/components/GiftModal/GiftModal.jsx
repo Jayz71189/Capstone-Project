@@ -10,18 +10,20 @@ function GiftModal({
   refreshGifts,
   existingQuantity,
   existingPrice,
+  existingPreviewImage,
 }) {
   const [name, setName] = useState(existingName || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [quantity, setQuantity] = useState(existingQuantity || "");
   const [price, setPrice] = useState(existingPrice || "");
+  const [previewImage, setPreviewImage] = useState(existingPreviewImage || "");
   const { closeModal } = useModal();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = await dispatch(
-      thunkUpdateGift(giftId, name, description, quantity, price)
+      thunkUpdateGift(giftId, name, description, quantity, price, previewImage)
     );
     if (errors) {
       alert("Error updating gift");
@@ -80,6 +82,15 @@ function GiftModal({
             onChange={(e) => setPrice(e.target.value)}
             required
             placeholder="Price"
+          />
+        </label>
+        <label style={{ fontFamily: "Sour Gummy" }}>
+          previewImage:
+          <textarea
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
+            required
+            placeholder="previewImage"
           />
         </label>
         <div>

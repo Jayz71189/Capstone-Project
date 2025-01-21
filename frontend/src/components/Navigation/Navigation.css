@@ -3,6 +3,9 @@ ul {
   list-style-type: none;
   flex: auto;
   flex-direction: column;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
 
   /* Optional: If you want the entire <ul> to be aligned to the right */
 }
@@ -27,6 +30,7 @@ li {
 }
 
 .nav-bar {
+  padding: 5%;
   display: flex;
 }
 .session-user {

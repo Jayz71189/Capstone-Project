@@ -21,6 +21,10 @@
   color: white;
 }
 
+h1 {
+  font-family: "Times New Roman", Times, serif;
+}
+
 div > h1 {
   font-family: "Sour Gummy";
 }
@@ -28,6 +32,9 @@ div > h1 {
 .comment {
   margin-right: 15px;
   color: #000000;
+  font-size: larger;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .modal {

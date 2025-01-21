@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 import { thunkLoadLikes } from "../../store/likes";
 import { thunkLoadPurchase } from "../../store/purchases";
 import LikeModal from "../LikeModal/LikeModal";
 import CommentsModal from "../CommentsModal/CommentsModal";
-import PurchaseModal from "../PurchaseModal/PurchaseModal";
+// import PurchaseModal from "../PurchaseModal/PurchaseModal";
 // import PostModal from '../PostModal/PostModal';
 import { useModal } from "../../context/Modal";
 import "./LikesPage.css";
@@ -16,8 +16,8 @@ function LikesPage() {
   const [errors, setErrors] = useState();
   const [fillHeart, setFillHeart] = useState("");
   const { setModalContent, closeModal } = useModal();
-  const [purchaseStatus, setPurchaseStatus] = useState({});
-  const navigate = useNavigate();
+  //   const [purchaseStatus, setPurchaseStatus] = useState({});
+  //   const navigate = useNavigate();
   const dispatch = useDispatch();
   //   const sessionUser = useSelector((state) => state.session.user);
 
@@ -69,28 +69,28 @@ function LikesPage() {
   //     dispatch(thunkLoadLikes());
   //   };
 
-  const checkPurchaseStatus = async (giftId) => {
-    try {
-      const response = await fetch(`/api/gifts/${giftId}/purchases`);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching purchase status:", error);
-      return { is_purchased: false, note: "" };
-    }
-  };
+  //   const checkPurchaseStatus = async (giftId) => {
+  //     try {
+  //       const response = await fetch(`/api/gifts/${giftId}/purchases`);
+  //       const data = await response.json();
+  //       return data;
+  //     } catch (error) {
+  //       console.error("Error fetching purchase status:", error);
+  //       return { is_purchased: false, note: "" };
+  //     }
+  //   };
 
-  useEffect(() => {
-    const loadPurchaseStatus = async () => {
-      const status = {};
-      for (const like of likes) {
-        const { is_purchased, note } = await checkPurchaseStatus(like.giftId);
-        status[like.giftId] = { is_purchased, note };
-      }
-      setPurchaseStatus(status);
-    };
-    if (likes.length > 0) loadPurchaseStatus();
-  }, [likes]);
+  //   useEffect(() => {
+  //     const loadPurchaseStatus = async () => {
+  //       const status = {};
+  //       for (const like of likes) {
+  //         const { is_purchased, note } = await checkPurchaseStatus(like.giftId);
+  //         status[like.giftId] = { is_purchased, note };
+  //       }
+  //       setPurchaseStatus(status);
+  //     };
+  //     if (likes.length > 0) loadPurchaseStatus();
+  //   }, [likes]);
 
   const fill_heart = (giftId) => {
     setFillHeart((prev) => ({
@@ -101,31 +101,31 @@ function LikesPage() {
 
   const heart = (giftId) => (fillHeart[giftId] ? <FaHeart /> : <FaRegHeart />);
 
-  const refreshPurchases = async () => {
-    const updatedPurchaseStatus = {};
-    for (const like of likes) {
-      const { is_purchased, note } = await checkPurchaseStatus(
-        like.poster_username
-      );
-      updatedPurchaseStatus[like.poster_username] = { is_purchased, note };
-    }
-    setPurchaseStatus(updatedPurchaseStatus);
-  };
+  //   const refreshPurchases = async () => {
+  //     const updatedPurchaseStatus = {};
+  //     for (const like of likes) {
+  //       const { is_purchased, note } = await checkPurchaseStatus(
+  //         like.poster_username
+  //       );
+  //       updatedPurchaseStatus[like.poster_username] = { is_purchased, note };
+  //     }
+  //     setPurchaseStatus(updatedPurchaseStatus);
+  //   };
 
-  const openPurchaseModal = (like) => {
-    const userFollowStatus = purchaseStatus[like.poster_username] || {
-      is_following: false,
-      note: "",
-    };
-    setModalContent(
-      <PurchaseModal
-        userId={like.poster_id}
-        isPurchased={userFollowStatus.is_purchased}
-        existingNote={userFollowStatus.note}
-        refreshPurchases={refreshPurchases}
-      />
-    );
-  };
+  //   const openPurchaseModal = (like) => {
+  //     const userFollowStatus = purchaseStatus[like.poster_username] || {
+  //       is_purchased: false,
+  //       note: "",
+  //     };
+  //     setModalContent(
+  //       <PurchaseModal
+  //         userId={like.poster_id}
+  //         isPurchased={userFollowStatus.is_purchased}
+  //         existingNote={userFollowStatus.note}
+  //         refreshPurchases={refreshPurchases}
+  //       />
+  //     );
+  //   };
 
   return (
     <div className="posts_section_4">
@@ -140,7 +140,7 @@ function LikesPage() {
             const openLikesModal = () => {
               setModalContent(
                 <LikeModal
-                  giftId={like.id}
+                  giftId={like.giftId}
                   isLiked={true}
                   likeId={like.id}
                   existingNote={like.note}
@@ -160,10 +160,10 @@ function LikesPage() {
             //     setModalContent(<PostModal postId={like.post_id} existingTitle={like.title} existingDescription={like.description} closeModal={closeModal} refreshPosts={refreshPosts} />)
             //   }
 
-            const purchaseButton = purchaseStatus[like.poster_username]
-              ?.is_purchased
-              ? "Following"
-              : "Purchase";
+            // const purchaseButton = purchaseStatus[like.poster_username]
+            //   ?.is_purchased
+            //   ? "Following"
+            //   : "Purchase";
 
             return (
               <div key={like.gift} className="post_container">
@@ -175,18 +175,22 @@ function LikesPage() {
                   >
                     {like.poster_username}
                   </a>
-                  <div id="follow_me" onClick={() => openPurchaseModal(like)}>
+                  {/* <div id="purchase_me" onClick={() => openPurchaseModal(like)}>
                     {purchaseButton}
-                  </div>
+                  </div> */}
                 </div>
-                <img
+                {/* <img
                   onClick={() => navigate(`/gifts/${like.giftId}`)}
                   src={like.gift}
                   alt={like.description}
                   className="likes_img"
-                />
+                /> */}
+                <div className="giftId"> gift Id {like.giftId}</div>
                 <div className="added_info_div">
-                  <div className="description">{like.description}</div>
+                  <div className="description">
+                    {" "}
+                    description {like.description}
+                  </div>
                   {/* {sessionUser && sessionUser.id === like.poster_id && (
                                         <div className='manage_like_container'>
                                         <div className='manage_like_icon' onClick={(e) => {e.stopPropagation();openPostModal()}}><FaCog /></div>

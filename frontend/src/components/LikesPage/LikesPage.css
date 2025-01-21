@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   width: 90%;
-
 }
 
 .h1_container {
@@ -16,7 +15,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
   margin-left: 4.5%;
 }
 
@@ -24,7 +23,7 @@
   height: 75vh;
   width: 90%;
   object-fit: cover;
-} 
+}
 
 .likes_img:hover {
   cursor: pointer;
@@ -43,20 +42,18 @@
   border-bottom-left-radius: 5px;
   width: 90%;
   position: sticky;
-  object-fit: contain;  
-
+  object-fit: contain;
 }
 
 .post_added_info {
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
   color: white;
   object-fit: contain;
   margin-left: 10px;
-
 }
 
 .post_description {
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
   color: white;
   object-fit: contain;
   display: flex;
@@ -70,15 +67,15 @@
   visibility: visible;
   margin-left: 240px;
   background-color: #222222;
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
 }
 
-.note_container:hover .note{
+.note_container:hover .note {
   opacity: 1;
   visibility: visible;
   margin-left: 150px;
   background-color: #222222;
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
   width: 150px;
 }
 .heart_icon {
@@ -98,18 +95,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  background-color: #222222; 
+  background-color: #222222;
   padding: 5px;
   border-radius: 5px;
   font-size: 14px;
-  font-family: 'Sour GUmmy';
-  opacity: 0; 
-  visibility: hidden; 
-  pointer-events: none; 
+  font-family: "Sour GUmmy";
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   margin-left: 240px;
   margin-bottom: 2px;
-
 }
 
 .note {
@@ -121,23 +117,22 @@
   padding: 5px;
   border-radius: 5px;
   font-size: 14px;
-  opacity: 0; 
-  visibility: hidden; 
-  pointer-events: none; 
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   background-color: #222222;
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
   margin-left: 150px;
   margin-bottom: 2px;
   width: 150px;
-
 }
 
 .user_info {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items:flex-start;
+  align-items: flex-start;
   background-color: #222222;
   height: 50px;
   margin-top: 15px;
@@ -150,7 +145,7 @@
   padding-right: 5px;
   padding-top: 5px;
   color: white;
-  font-family: 'Sour Gummy';
+  font-family: "Sour Gummy";
 }
 
 #user_a_tag {
@@ -162,12 +157,12 @@
   text-decoration: underline;
 }
 
-#follow_me {
-  color: #46976A;
+#purchase_me {
+  color: #46976a;
   font-weight: bold;
 }
 
-#follow_me:hover {
+#purchase_me:hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -183,7 +178,7 @@
 }
 
 .posts_section_3::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .posts_section_4 {
@@ -192,5 +187,5 @@
 }
 
 .posts_section_4::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }

@@ -26,6 +26,7 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
       description: formData.get("description"),
       quantity: formData.get("quantity"),
       price: formData.get("price"),
+      previewImage: formData.get("previewImage"),
     };
     const response = await csrfFetch("/api/gifts", {
       method: "POST",
@@ -42,19 +43,19 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
     const newGift = await response.json();
     dispatch(createGift(newGift));
 
-    // const giftId = newGift.id;
-    // const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
-    //   method: "POST",
-    //   body: formData,
-    // });
+    const giftId = newGift.id;
+    const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
+      method: "POST",
+      body: JSON.stringify({ url: giftData.previewImage, preview: true }),
+    });
 
-    // if (!giftImageResponse.ok) {
-    //   const errors = await giftImageResponse.json();
-    //   return errors;
-    // }
-    // const newGiftImage = await giftImageResponse.json();
-    // dispatch(createGift(newGiftImage));
-    // return { gift: newGift, image: newGiftImage };
+    if (!giftImageResponse.ok) {
+      const errors = await giftImageResponse.json();
+      return errors;
+    }
+    const newGiftImage = await giftImageResponse.json();
+    dispatch(createGift(newGiftImage));
+    return { gift: newGift, image: newGiftImage };
   } catch (error) {
     console.error("Error creating gift or gift image:", error);
     return { errors: ["An unexpected error occurred."] };
@@ -62,19 +63,35 @@ export const thunkCreateGift = (formData) => async (dispatch) => {
 };
 
 export const thunkUpdateGift =
-  (giftId, name, description, price, quantity) => async (dispatch) => {
+  (giftId, name, description, price, quantity, previewImage) =>
+  async (dispatch) => {
     const response = await csrfFetch(`/api/gifts/${giftId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, description, price, quantity }),
+      body: JSON.stringify({
+        name,
+        description,
+        price,
+        quantity,
+        previewImage,
+      }),
+    });
+
+    const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
+      method: "POST",
+      body: JSON.stringify({ url: previewImage, preview: true }),
     });
 
     if (response.ok) {
       const updatedGift = await response.json();
+      const updatedGiftImage = await giftImageResponse.json();
       dispatch(updateGift(updatedGift));
-      return null;
+      dispatch(updateGift(updatedGiftImage));
+      return { gift: updatedGift, image: updatedGiftImage };
+      // return null;
     } else {
       const errors = await response.json();
+      console.log("errrrrrrrorrrrrrr");
       return errors;
     }
   };

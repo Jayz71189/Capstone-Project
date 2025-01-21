@@ -3,8 +3,8 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import CreateGiftModal from "../CreateGiftModal/CreateGiftModal";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
+// import CreateGiftModal from "../CreateGiftModal/CreateGiftModal";
+// import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -12,13 +12,18 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul>
-      <div className="session-user">
+      {/* <div className="session-user">
         {sessionUser && (
           <OpenModalButton
             modalComponent={<CreateGiftModal />}
             buttonText="Create New Gift"
           />
         )}
+      </div> */}
+      <div className="logo">
+        <NavLink to="/">
+          <img src="/png.webp" alt="App Logo" className="logo-img" />
+        </NavLink>
       </div>
       <div className="nav-bar">
         <li>
