@@ -37,21 +37,29 @@ export const thunkLoadLikes = () => async (dispatch) => {
 };
 
 export const thunkAddLike =
-  (giftId, note = "") =>
+  (giftId, note = "", setAlreadyLikedMessage) =>
   async (dispatch) => {
-    const response = await csrfFetch(`/api/gifts/${giftId}/likes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ note }),
-    });
+    try {
+      const response = await csrfFetch(`/api/gifts/${giftId}/likes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ note }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(addLike(data));
-      return null;
-    } else {
-      const errors = await response.json();
-      return errors;
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(addLike(data));
+        return null;
+      } else {
+        const error = await response.json();
+        if (error.message === "Bad Request") {
+          setAlreadyLikedMessage(error.message);
+          console.log("errrrror");
+        }
+        return error.errors || { error: error.message };
+      }
+    } catch (err) {
+      return { error: "Already liked." };
     }
   };
 

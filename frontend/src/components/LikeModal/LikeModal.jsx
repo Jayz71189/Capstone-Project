@@ -19,6 +19,7 @@ function LikeModal({
   const { closeModal } = useModal();
   const [note, setNote] = useState(existingNote);
   const [errors, setErrors] = useState({});
+  const [alreadyLikedMessage, setAlreadyLikedMessage] = useState("");
 
   useEffect(() => {
     if (isLiked && likeId) {
@@ -62,15 +63,18 @@ function LikeModal({
     refreshLikes();
   };
 
-  const setAlreadyLikedMessage = (message) => {
-    alert(message); // Or set it to a state variable for display
-  };
+  // const setAlreadyLikedMessage = (message) => {
+  //   alert(message); // Or set it to a state variable for display
+  // };
 
   return (
     <div id="like-modal">
       <h2 style={{ marginBottom: "-.2%" }}>
         {isLiked ? "Edit Like" : "Like Gift"}
       </h2>
+      {/* Display the already liked error message */}
+      {alreadyLikedMessage && <p className="error">{alreadyLikedMessage}</p>}
+      {/* General error handling */}
       {errors.error && <p className="error">{errors.error}</p>}
       <form onSubmit={handleSubmit}>
         {/* <label>
