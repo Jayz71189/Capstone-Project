@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 // import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 // import { PiDotsThreeOutlineFill } from "react-icons/pi";
 // import { thunkLoadLikes } from "../../redux/likes";
-// import { thunkLoadFollows } from "../../redux/follows";
+import { thunkLoadPurchase } from "../../store/purchases";
 // import LikeModal from "../LikeModal/LikeModal";
 // import CommentsModal from "../CommentsModal/CommentsModal";
-// import FollowModal from "../FollowModal/FollowModal";
+// import PurchaseModal from "../PurchaseModal/PurchaseModal";
 import GiftTile from "../GiftTile";
 // import SignupFormModal from "../SignupFormModal/SignupFormModal";
 // import LoginFormModal from "../LoginFormModal/LoginFormModal";
@@ -22,7 +22,7 @@ import CreateGiftsModal from "../CreateGiftModal/CreateGiftModal";
 
 function LandingPage() {
   const [gifts, setGifts] = useState([]);
-  //   const [sessionGifts, setSessionGifts] = useState([]);
+  // const [sessionGifts, setSessionGifts] = useState([]);
   //   const [users, setUsers] = useState();
   const [errors, setErrors] = useState();
   //   const [view, setView] = useState("all");
@@ -33,9 +33,9 @@ function LandingPage() {
   //   const navigate = useNavigate();
   const dispatch = useDispatch();
   const giftList = useSelector((state) => Object.values(state.gifts));
-  //   const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
   //   const likes = useSelector((state) => state.likes);
-  //   const follows = useSelector((state) => state.follows);
+  // const purchases = useSelector((state) => state.purchases);
 
   useEffect(() => {
     fetch("/api/gifts")
@@ -67,23 +67,23 @@ function LandingPage() {
           console.log(errors);
         }
       });
-    // dispatch(thunkLoadFollows());
+    dispatch(thunkLoadPurchase());
     // dispatch(thunkLoadLikes());
     dispatch, closeModal;
   };
 
-  //   useEffect(() => {
-  //     fetch("/api/posts/followed_posts")
-  //       .then((res) => res.json())
-  //       .then((data) => setSessionPosts(data.Posts))
-  //       .catch(async (res) => {
-  //         const data = await res.json();
-  //         if (data && data.errors) {
-  //           setErrors(data.errors);
-  //           console.log(errors);
-  //         }
-  //       });
-  //   }, [sessionUser, errors, closeModal]);
+  // useEffect(() => {
+  //   fetch(`/api/gifts/${giftId}/purchases`)
+  //     .then((res) => res.json())
+  //     .then((data) => setSessionGifts(data.Gifts))
+  //     .catch(async (res) => {
+  //       const data = await res.json();
+  //       if (data && data.errors) {
+  //         setErrors(data.errors);
+  //         console.log(errors);
+  //       }
+  //     });
+  // }, [sessionUser, errors, closeModal]);
 
   //   useEffect(() => {
   //     fetch("/api/users/others")

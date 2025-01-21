@@ -44,15 +44,19 @@ function PurchasePage() {
               <div key={purchase.id} className="purchase_div">
                 <div className="purchase_div1">
                   {" "}
-                  gift Id = {`${purchase.giftId}.`}{" "}
+                  Gift Id = {`${purchase.giftId}.`}{" "}
+                </div>
+                <div className="purchase_div4">
+                  {" "}
+                  Name = {`${purchase.Gift.name}.`}{" "}
                 </div>
                 <div className="purchase_div2">
                   {" "}
-                  quantity purchased ={`${purchase.quantity}.`}{" "}
+                  Quantity purchased ={`${purchase.quantity}.`}{" "}
                 </div>
                 <div className="purchase_div3">
                   {" "}
-                  Total Price = {purchase.totalPrice}{" "}
+                  Price per gift = {purchase.totalPrice}{" "}
                 </div>
                 <div>
                   <a href={`/${purchase.purchase_username}`} id="user_tag">
