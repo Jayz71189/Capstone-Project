@@ -79,6 +79,7 @@ export const thunkUpdateGift =
 
     const giftImageResponse = await csrfFetch(`/api/gifts/${giftId}/images`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: previewImage, preview: true }),
     });
 
@@ -91,7 +92,6 @@ export const thunkUpdateGift =
       // return null;
     } else {
       const errors = await response.json();
-      console.log("errrrrrrrorrrrrrr");
       return errors;
     }
   };
