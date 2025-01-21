@@ -135,7 +135,7 @@ function GiftPage() {
             )}
           </div>
           <img
-            src={gift.GiftImages?.[0]?.url}
+            src={gift.GiftImages?.at(-1)?.url}
             alt={gift.description}
             className="post_img"
           />
