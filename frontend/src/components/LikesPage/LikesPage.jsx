@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 import { thunkLoadLikes } from "../../store/likes";
@@ -16,10 +16,12 @@ function LikesPage() {
   const [errors, setErrors] = useState();
   const [fillHeart, setFillHeart] = useState("");
   const { setModalContent, closeModal } = useModal();
+
   //   const [purchaseStatus, setPurchaseStatus] = useState({});
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //   const sessionUser = useSelector((state) => state.session.user);
+  //   const [gift, setGift] = useState([]);
 
   useEffect(() => {
     fetch("/api/likes/current")
@@ -166,7 +168,7 @@ function LikesPage() {
             //   : "Purchase";
 
             return (
-              <div key={like.gift} className="post_container">
+              <div key={like.gift} className="gift_container">
                 <div className="user_info">
                   <a
                     style={{ paddingRight: ".8%" }}
@@ -179,13 +181,15 @@ function LikesPage() {
                     {purchaseButton}
                   </div> */}
                 </div>
-                {/* <img
+                <div
                   onClick={() => navigate(`/gifts/${like.giftId}`)}
-                  src={like.gift}
+                  //   src={gift.GiftImage.url}
                   alt={like.description}
                   className="likes_img"
-                /> */}
-                <div className="giftId"> gift Id {like.giftId}</div>
+                />{" "}
+                Click above to go to Gift
+                <div className="giftId"> gift Id #: {like.giftId}</div>
+                <div className="giftId"> gift name: {like.Gift.name}</div>
                 <div className="added_info_div">
                   <div className="description">
                     {" "}

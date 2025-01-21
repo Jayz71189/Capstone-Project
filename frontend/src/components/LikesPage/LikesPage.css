@@ -20,7 +20,7 @@
 }
 
 .likes_img {
-  height: 75vh;
+  height: 7vh;
   width: 90%;
   object-fit: cover;
 }
@@ -167,7 +167,7 @@
   text-decoration: underline;
 }
 
-.post_container {
+.gift_container {
   overflow-y: hidden;
   scrollbar-width: none;
 }
@@ -188,4 +188,11 @@
 
 .posts_section_4::-webkit-scrollbar {
   display: none;
+}
+
+.giftId {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-size: larger;
+  color: #722121;
 }

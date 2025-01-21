@@ -121,7 +121,8 @@ function ProfilePage() {
             return (
               <picture key={gift.id} className="gift_container">
                 <div className="user_info">
-                  {sessionUser.username}
+                  {sessionUser.username} -------------------------------Click on
+                  ... to edit or delete
                   <div
                     className="manage_gift_icon"
                     onClick={(e) => {

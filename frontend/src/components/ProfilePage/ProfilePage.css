@@ -36,9 +36,10 @@
   flex-direction: column;
 }
 
-.gift_img {
+.gifts_img {
   height: 75vh;
-  width: 90%;
+  width: 60 rem;
+  display: flex;
 }
 
 .gift_img:hover {
