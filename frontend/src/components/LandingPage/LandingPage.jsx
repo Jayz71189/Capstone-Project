@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import { FaRegHeart, FaRegCommentDots, FaHeart } from "react-icons/fa";
 // import { PiDotsThreeOutlineFill } from "react-icons/pi";
 // import { thunkLoadLikes } from "../../redux/likes";
-import { thunkLoadPurchase } from "../../store/purchases";
+// import { thunkLoadPurchase } from "../../store/purchases";
 // import LikeModal from "../LikeModal/LikeModal";
 // import CommentsModal from "../CommentsModal/CommentsModal";
 // import PurchaseModal from "../PurchaseModal/PurchaseModal";
@@ -67,7 +67,7 @@ function LandingPage() {
           console.log(errors);
         }
       });
-    dispatch(thunkLoadPurchase());
+    // dispatch(thunkLoadPurchase());
     // dispatch(thunkLoadLikes());
     dispatch, closeModal;
   };
@@ -142,10 +142,7 @@ function LandingPage() {
         <OpenModalMenuItem
           itemText="Create Gift"
           modalComponent={
-            <CreateGiftsModal
-              giftId={giftList.id}
-              refreshGifts={refreshGifts}
-            />
+            <CreateGiftsModal giftId={gifts.id} refreshGifts={refreshGifts} />
           }
         />
       </div>
